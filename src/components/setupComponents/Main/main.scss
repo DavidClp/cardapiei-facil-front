@@ -1,0 +1,13 @@
+@import '../../../styles/variables';
+
+.main {
+    padding: 3rem 15% 3rem 15%;
+    @include flexJustifyStart();
+    min-height: 100vh;
+    gap: 2rem;
+    background-color: $cor-secundaria;
+
+ 
+
+
+}

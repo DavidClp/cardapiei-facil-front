@@ -1,0 +1,25 @@
+@import '../../../styles/variables';
+
+.header{
+    @include flexBetween(row);
+    background-color: $cor-primaria;
+    height: 5rem;
+    //box-shadow: 1rem black;
+
+    .content{
+        @include flexBetween(row);
+        gap: 1rem;
+        color: $cor-text;
+        .logo{
+        
+        }
+    
+    }
+
+
+
+    @media (max-width: 768px) {
+
+    }
+
+}

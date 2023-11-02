@@ -1,0 +1,113 @@
+@import '../../../styles/variables';
+
+
+.formContainer {
+    background-color: $cor-primaria;
+    border-radius: 1rem;
+    width: 60%;
+    max-width: 900%;
+
+    .titulo {
+        padding: 1rem;
+        @include flexCenter(row);
+        gap: 1rem;
+        border-bottom: 1px solid black;
+    }
+
+    .form {
+        padding: 1.5rem;
+        @include flexCenter(column);
+        gap: 1rem;
+
+        .input {
+            @include flexCenter(column);
+            width: 100%;
+
+            label {
+                font-weight: 600;
+            }
+
+            input {
+                border-radius: 5px;
+                padding: .5rem;
+                border: none;
+                width: 100%;
+            }
+
+            textarea {
+                border-radius: 5px;
+                padding: .5rem;
+                border: none;
+                width: 100%;
+            }
+        }
+
+        .inputSelect{
+            @include flexCenter(row);
+            gap: 1rem;
+            width: 100%;
+
+            select{
+                border-radius: 5px;
+                padding: .5rem;
+                border: none;
+                width: 30%;  
+                font-size: 1rem;
+            }
+
+            input{
+                border-radius: 5px;
+                padding: .5rem;
+                border: none;
+                width: 60%;
+            }
+        }
+
+        .inputHorario{
+            @include flexCenter(row);
+            gap: 1rem;
+            width: 100%;
+            
+            .inputLabel{
+                @include flexCenter(column);
+            }
+            select{
+                border-radius: 5px;
+                padding: .5rem;
+                border: none;
+                width: 30%;  
+                font-size: 1rem;
+            }
+
+            input{
+                border-radius: 5px;
+                padding: .5rem;
+                border: none;
+                width: 60%;
+            }
+        }
+
+        .custom-file-input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .custom-file-label {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .custom-file-label:hover {
+            background-color: #e0e0e0;
+        }
+
+    }
+
+}
+
+.formCadastro{
+    max-width: 30% !important; /* ARRUMAR */
+}

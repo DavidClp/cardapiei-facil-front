@@ -1,0 +1,98 @@
+@import '../../../styles/variables';
+
+.header23{
+    display: hidden;
+    background-color: $cor-primaria;
+    height: 5rem;
+    padding: 0rem 3rem ;
+    //box-shadow: 1rem black;
+
+    .content{
+        @include flexAlign(row);
+        gap: 1rem;
+        height: 100%;
+        color: $cor-text;
+        .logo {
+            @include flexCenter(row); // Centraliza a imagem horizontalmente
+            .link {
+              img {
+                width: 7rem;
+                margin-bottom: 7px;
+              }
+            }
+        }
+    
+        nav{
+            ul{
+                @include flexCenter(row);
+                gap: 1rem;
+                height: 100%; 
+                
+                li{
+                    .link{
+                        padding: 1rem;
+                        font-size: 1rem;
+                        color: $cor-text;
+                        font-weight: 400;
+                    }
+
+                    .select{
+                        color: $cor-botao;
+                        font-weight: 500;
+                        font-size: 1.1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .perfil{
+        @include flexCenter(row);
+        gap: .4rem;
+
+        .icon{
+            font-size: 1.5rem;
+        }
+    }
+
+
+    .container{
+        @include flexCenter(column);
+        gap: 1rem;
+        max-width: 40%;
+
+        .icon{
+            font-size: 1.5rem;
+        }
+
+        .nome{
+            font-size: 2rem;
+        }
+
+        .descricao{
+            font-size: 1.3rem;
+        }
+
+        .localizacao{
+            display: flex;
+            gap: .8rem;
+            p{
+                font-size: 1.1rem;
+            }
+        }
+
+        .horarios{
+            gap: 1rem;
+            .horario{
+                display: flex;
+                gap: .8rem;
+                font-size: 1.1rem;
+            }
+        }
+    }
+
+    @media (min-width: 1024px) {
+        @include flexBetween(row);
+    }
+
+}
