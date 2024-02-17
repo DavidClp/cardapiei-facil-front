@@ -75,23 +75,6 @@
     }
 }
 
-.buttonRemove{
-    @include flexCenter(row);
-    width: 2.5rem;
-    height: 2.5rem;
-    background-color: $cor-botao;
-    border: none;
-    border-radius: 5px;
-    color: $cor-text-secundaria;
-    font-size: 1.3rem;
-    cursor: pointer;
-
-    &:hover{
-        background-color: $cor-botao-hover;
-    }
-}
-
-
 .buttonAjuda{
     width: 10rem;
     height: 3rem;
@@ -146,7 +129,6 @@
 		border: 0px ;
 	}
 }
-
 
 
 /* CSS */
@@ -219,3 +201,47 @@
   border-width: 4px 0 0;
   background: none;
 }
+
+
+.plano-btn {
+    color: #fff;
+    border-radius: 5px;
+    font-weight: 700;
+    padding: 1rem 4rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    cursor: pointer;
+    position: relativea;
+    align-items: center;
+    
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
+      7px 7px 20px 0px rgba(0, 0, 0, .1),
+      4px 4px 5px 0px rgba(0, 0, 0, .1);
+    outline: none;
+  }
+  
+  .btn-12 {
+    border: none;
+    background: linear-gradient(0deg, #3498db 0%, #4ea7e2 100%);
+    color: #fff;
+    overflow: hidden;
+  }
+  
+  .btn-12:hover {
+    text-decoration: none;
+    color: #fff;
+    opacity: .7;
+    background: rgb(0, 67, 126);
+  }
+  
+  
+  .btn-12:active {
+    box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .3),
+      -4px -4px 6px 0 rgba(116, 125, 136, .2),
+      inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
+      inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+  }
+
+  

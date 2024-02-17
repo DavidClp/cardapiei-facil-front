@@ -7,7 +7,7 @@ import {
   ButtonAtivo,
   ButtonInativo,
 } from "../Buttons";
-import { useMutation } from "react-query"; // Importe useMutation do react-query
+import { useMutation } from "react-query";
 
 import { ButtonAdd } from "../Buttons";
 import { IoIosSave } from "react-icons/io";
@@ -15,20 +15,34 @@ import axios from "axios";
 import { TbCategory } from "react-icons/tb";
 import { MdCancel } from "react-icons/md";
 import { urlApi } from "../../../constants/urlApi";
-const url = urlApi
+import Modal from "../Modal";
+import { AlertDialog } from "../alert-dialog";
+import Toast from "../toast";
+import { Card, CardContent, CardHeader, CardTitle } from "src/componentes/card";
+import { Input } from "../../../componentes/input";
+const url = urlApi;
 
-const FormProduto = ({
+export const FormProduto = ({
   handleSubmit,
   onSubmit,
   register,
   errors,
   selectedProduto,
+  setImagem2Selecionada,
 }) => {
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
+  /*  const [imagem2Selecionada, setImagem2Selecionada] = useState(null); */
+
+  const [imageSetFromData, setImageSetFromData] = useState(false);
+  if (selectedProduto && selectedProduto.imagem && !imageSetFromData) {
+    setImagemSelecionada(selectedProduto.imagem);
+    setImageSetFromData(true);
+  }
 
   //pega a imagem selecionada
   const handleImagemChange = (e) => {
     const arquivoSelecionado = e.target.files[0];
+    setImagem2Selecionada(e.target.files[0]);
     if (arquivoSelecionado) {
       const reader = new FileReader();
 
@@ -43,24 +57,12 @@ const FormProduto = ({
   const handleRemoverImagem = () => {
     setImagemSelecionada(null);
   };
-  const [erro, setErro] = useState("");
 
- /*  const [valor, setValor] = useState("");
-
-  const handleValorChange = (event) => {
-    const valorDigitado = event.target.value;
-
-    if (valorDigitado.includes(',')) {
-      setErro("Use pontos em vez de vírgulas para valores decimais.");
-    } else {
-      setErro("");
-    }
-
-    setValor(valorDigitado);
-  };
- */
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center justify-center py-2 lg:p-4 gap-4 w-full"
+    >
       {selectedProduto?.id && (
         <input
           type="hidden"
@@ -70,98 +72,106 @@ const FormProduto = ({
           {...register("produtoId")}
         />
       )}
-      <div className="input">
-        <label htmlFor="nome">Nome do produto</label>
+      <div className="flex flex-col items-center justify-center gap-2 w-full">
+        <label htmlFor="nome" className="font-semibold">
+          Nome do produto
+        </label>
         <input
           type="text"
           name="nome"
           id="nome"
+          className={`rounded-md p-2 w-full focus:outline-none ${
+            errors?.nome ? "focus:outline-red" : ""
+          }`}
           placeholder="Exemplo: Pizza Portuguesa"
-          className={errors?.nome && "inputError"}
           defaultValue={selectedProduto?.nome || ""}
           {...register("nome", { required: true })}
         />
         {errors?.nome?.type === "required" && (
-          <p className="errorMessage">Nome é requirido</p>
+          <p className="text-red">Nome é requirido</p>
         )}
       </div>
 
- {/*      <div className="input">
-        <label htmlFor="valor">Valor</label>
+      <div className="flex flex-col items-center justify-center gap-2 w-full">
+        <label htmlFor="valor" className="font-semibold">
+          Valor
+        </label>
         <input
           type="text"
           name="valor"
-          id="valor"
-          placeholder="0.00"
-          className={errors?.valor && "inputError"}
-          defaultValue={selectedProduto?.valor || ""}
-          {...register("valor")}
-        />
-        {errors?.valor?.type === "required" && (
-          <p className="errorMessage">Nome é requirido</p>
-        )}
-      </div> */}
-      
-
-      <div className="input">
-        <label htmlFor="valor">Valor</label>
-        <input
-          type="text"
-          name="valor"
-  /*         value={valor}
+          /*         value={valor}
           onChange={handleValorChange} */
           placeholder="0.00"
-          className={errors?.valor && "inputError"}
+          className="rounded-md p-2 w-full focus:outline-none"
           defaultValue={selectedProduto?.valor || ""}
           {...register("valor")}
         />
-      {erro && <p className="errorMessage">{erro}</p>}
       </div>
 
-
-      <div className="input">
-        <label htmlFor="descricao">Descrição do produto</label>
+      <div className="flex flex-col items-center justify-center gap-2 w-full">
+        <label htmlFor="descricao" className="font-semibold">
+          Descrição do produto
+        </label>
         <textarea
           name="descricao"
           id="descricao"
           cols="50"
           rows="3"
+          className="rounded-md p-2 w-full focus:outline-none resize-none"
           placeholder="Exemplo: Melhor Pizza do Mundo!"
-          defaultValue={selectedProduto?.descricao || ""}
+          /*  defaultValue={selectedProduto?.descricao && selectedProduto?.descricao !== "null" ? selectedProduto?.descricao : "" } */
+          defaultValue={
+            selectedProduto?.descricao ? selectedProduto?.descricao : ""
+          }
           {...register("descricao")}
         ></textarea>
       </div>
 
-      <div className="custom-file">
+      <div>
         {imagemSelecionada ? (
           <div>
-            <img src={imagemSelecionada} alt="Imagem Selecionada" />
+            <img
+              src={imagemSelecionada}
+              alt="Imagem Selecionada"
+              className="w-40 h-36 mb-1 bg-background object-cover"
+            />
           </div>
         ) : (
           <div>
-            <label className="FileContainer" htmlFor="customFile">
+            <label
+              className="w-40 h-36 bg-background p-3 rounded inline-block cursor-pointer mb-1"
+              htmlFor="customFile"
+            >
               Clique Aqui para Adicionar uma imagem
             </label>
           </div>
         )}
 
         {imagemSelecionada ? (
-          <label className="customFileLabel" onClick={handleRemoverImagem}>
+          <label
+            className="bg-background p-1 rounded inline-block cursor-pointer z-50"
+            onClick={handleRemoverImagem}
+          >
             Remover
           </label>
         ) : (
-          <label className="customFileLabel" htmlFor="customFile">
-            Adicionar
-          </label>
+          <>
+            <label
+              className="bg-background p-1 rounded inline-block cursor-pointer"
+              htmlFor="customFile"
+            >
+              Adicionar
+            </label>
+            <input
+              type="file"
+              className="absolute opacity-0 cursor-pointer"
+              id="customFile"
+              name="file"
+              {...register("imagem")}
+              onChange={handleImagemChange}
+            />
+          </>
         )}
-        <input
-          type="file"
-          className="custom-file-input"
-          id="customFile"
-          name="file"
-          {...register("imagem")}
-          onChange={handleImagemChange}
-        />
       </div>
 
       <ButtonForm />
@@ -169,7 +179,7 @@ const FormProduto = ({
   );
 };
 
-const FormCategoria = ({
+export const FormCategoria = ({
   handleSubmit,
   onSubmit,
   register,
@@ -177,6 +187,7 @@ const FormCategoria = ({
   isLoading,
   data,
   refetch,
+  errors,
 }) => {
   const [isOpenEditCategoria, setIsOpenEditCategoria] = useState(false);
   const [editCategoriaId, setEditCategoriaId] = useState(null);
@@ -207,21 +218,20 @@ const FormCategoria = ({
     cancelEditCategoria();
   };
 
-  const { mutate: putMutate } = useMutation(
+  const {
+    mutate: putMutate,
+    isError: isErrorPut,
+    isSuccess: isSucessPut,
+  } = useMutation(
     (formData) => {
-      return axios
-        .put(`${url}api/categorias/${formData.id}`, formData, {
-          headers: {
-            "Content-Type": "application/json",
-            token: localStorage.getItem("token"),
-          },
-        })
-        .then((response) => response.data);
+      return axios.put(`${url}api/categorias/${formData.id}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token"),
+        },
+      });
     },
     {
-      onError: (error) => {
-        console.error("Erro editar categorias", error);
-      },
       onSuccess: (responseData) => {
         /* setIsModalOpen(false); */
         refetch();
@@ -230,18 +240,28 @@ const FormCategoria = ({
   );
 
   const handleSituacao = (categoria) => {
-    /* event.preventDefault(); */
-    console.log(categoria.ativo)
     let ativo = null;
-    categoria.ativo === 1 ? ativo = 0 : ativo = 1;
+    categoria.ativo === 1 ? (ativo = 0) : (ativo = 1);
     putSituacao({
       id: categoria.id,
       ativo: ativo,
     });
-
   };
 
-  const { mutate: putSituacao } = useMutation(
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const {
+    mutate: putSituacao,
+    isError: isErrorSit,
+    isSuccess: isSucessSit,
+  } = useMutation(
     (formData) => {
       return axios
         .put(`${url}api/categorias/situacao/${formData.id}`, formData, {
@@ -263,77 +283,101 @@ const FormCategoria = ({
   );
 
   return (
-    <div className="formContainer">
-      <div className="titulo">
-        <TbCategory />
-        <h3>Categorias do cardápio</h3>
-      </div>
+    <Card className="w-full h-full">
+      {isSucessPut || isSucessSit ? (
+        <Toast type="success">Categoria Atualizada com Sucesso!</Toast>
+      ) : null}
+      {isErrorPut || isErrorSit ? (
+        <Toast type="error" duration={4000}></Toast>
+      ) : null}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <div className="inputSelect">
-          <input
-            type="text"
-            name="categoria"
-            id="categoria"
-            {...register("nome")}
-          />
-          <ButtonAdd />
+      <CardHeader>
+        <div className="flex items-center justify-center gap-4 p-4">
+          <CardTitle className="flex justify-center gap-2">
+            <TbCategory />
+            Categorias do cardápio
+          </CardTitle>
         </div>
-      </form>
+      </CardHeader>
 
-      {isLoading === false &&
-        data.map((categoria) => (
-          <div className="getContatos" key={categoria.id}>
-            {isOpenEditCategoria && editCategoriaId === categoria.id ? (
-              <form onSubmit={handleEditSubmit} className="form">
-                <div className="inputSelect">
-                  <input
-                    type="text"
-                    value={editCategoriaNome}
-                    onChange={(e) => setEditCategoriaNome(e.target.value)}
-                  />
-                  <ButtonComIcon>
-                    <IoIosSave className="icon" />
-                  </ButtonComIcon>
-                  <ButtonComIcon onClick={cancelEditCategoria}>
-                    <MdCancel className="icon" />
-                  </ButtonComIcon>
-                </div>
-              </form>
-            ) : (
-              /*  <form onSubmit={handleSubmit(onSubmit)} className="form">
-                 <div className="inputSelect">
-                   <input type="text"
-                     name="categoria"
-                     id="categoria"
-                     defaultValue={editCategoriaNome}
-                     {...register("nome")} />
-                   <ButtonAdd />
-                 </div>
-               </form> */
-              <>
-                <div
-                  className="tipo"
-                  onClick={() => openEditCategoria(categoria)}
-                >
-                  <p>{categoria.nome}</p>
-                </div>
-                {categoria.ativo === 1 ? (
-                  <ButtonAtivo
-                    onClick={() => handleSituacao(categoria)}
-                  />
-                ) : (
-                  <ButtonInativo
-                    onClick={() => handleSituacao(categoria)}
-                  />
-                )}
-                <ButtonRemove onClick={() => deleteCategoria(categoria.id)} />
-              </>
-            )}
+      <CardContent>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="p-5 flex flex-col ga-4"
+        >
+          {errors.nome?.type === "required" && (
+            <p className="text-destructive">Digite um nome válido!</p>
+          )}
+          <div className="flex items-center justify-center w-full gap-2">
+            <Input
+              type="text"
+              name="categoria"
+              id="categoria"
+              className="rounded p-2 w-full focus:outline-primary"
+              {...register("nome", { required: true, minLength: 1 })}
+            />
+            {console.log(errors.nome)}
+            <ButtonAdd />
           </div>
-        ))}
-    </div>
+        </form>
+
+        {isLoading === false &&
+          data?.map((categoria) => (
+            <div className="flex flex-col" key={categoria.id}>
+              {isOpenEditCategoria && editCategoriaId === categoria.id ? (
+                <form
+                  onSubmit={handleEditSubmit}
+                  className=" flex flex-col ga-4 w-full"
+                >
+                  <div className="p-3 flex items-center gap-1 w-full border-solid border-cinzaClaro border-t-[1px] justify-between">
+                    <input
+                      type="text"
+                      value={editCategoriaNome}
+                      onChange={(e) => setEditCategoriaNome(e.target.value)}
+                      className="rounded p-1 focus:outline-primary"
+                    />
+                    <div className="flex gap-1">
+                      <ButtonComIcon>
+                        <IoIosSave className="icon" />
+                      </ButtonComIcon>
+                      <ButtonComIcon onClick={cancelEditCategoria}>
+                        <MdCancel className="icon" />
+                      </ButtonComIcon>
+                    </div>
+                  </div>
+                </form>
+              ) : (
+                <div className="flex items-center p-3 gap-3 border-solid border-cinzaClaro border-t-[1px] w-full justify-between">
+                  <div
+                    onClick={() => openEditCategoria(categoria)}
+                    className="w-full"
+                  >
+                    <p>{categoria.nome}</p>
+                  </div>
+                  <div className="flex gap-1">
+                    {categoria.ativo === 1 ? (
+                      <ButtonAtivo onClick={() => handleSituacao(categoria)} />
+                    ) : (
+                      <ButtonInativo
+                        onClick={() => handleSituacao(categoria)}
+                      />
+                    )}
+                    <ButtonRemove onClick={openModal} />
+                  </div>
+                  <Modal isOpen={isModalOpen} closeModal={closeModal}>
+                    <AlertDialog
+                      closeModal={closeModal}
+                      onClick={() => deleteCategoria(categoria.id)}
+                    />
+                  </Modal>
+                </div>
+              )}
+            </div>
+          ))}
+      </CardContent>
+    </Card>
   );
 };
 
-export { FormProduto, FormCategoria };
+/* export { FormProduto, FormCategoria };
+ */

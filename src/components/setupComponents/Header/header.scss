@@ -2,7 +2,7 @@
 
 .header{
     @include flexBetween(row);
-    background-color: $cor-primaria;
+    background-color: $cor-secundaria;
     height: 5rem;
     //box-shadow: 1rem black;
 
@@ -14,12 +14,6 @@
         
         }
     
-    }
-
-
-
-    @media (max-width: 768px) {
-
     }
 
 }

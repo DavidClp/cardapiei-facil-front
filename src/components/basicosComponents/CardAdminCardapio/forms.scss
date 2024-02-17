@@ -11,7 +11,7 @@
         padding: 1rem;
         @include flexCenter(row);
         gap: 1rem;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid rgb(118, 118, 118);
     }
 
     .containerButtonCardapio{
@@ -23,17 +23,7 @@
         padding: 0.5rem 1rem 0.5rem 1rem;
         gap: 1rem;
 
-        .cardContent{
-            width: 100%;
-            @include flexBetween(row);
 
-            img{
-                width: 4rem;
-                height: 4rem;
-                object-fit: cover;
-                border-radius: 3px;
-            }
-        }
 
     }
 

@@ -1,14 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../../assets/logo.png";
+import logo from "../../../assets/logo.webp";
 import { ButtonVerCardapio } from "../../basicosComponents/Buttons";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { urlApi } from "../../../constants/urlApi";
+import { urlApi, urlSite } from "../../../constants/urlApi";
+import { BsFillPersonFill } from "react-icons/bs";
 const url = urlApi
-const urlBasica = "http://localhost:3000/";
+const urlBasica = urlSite;
+const usuario = sessionStorage.getItem("usuario");
 const est_id = localStorage.getItem("est_id");
 
 const HeaderMobile = () => {
@@ -36,8 +38,8 @@ const HeaderMobile = () => {
 
   return (
     <>
-      <div className="fixed w-full border-b border-bgSecondary z-10 lg:hidden">
-        <header className="flex justify-between items-center h-20 w-full bg-bgPrimary px-5 py-2 z-20 backdrop-blur-md bg-[rgba(247,247,247,0.82)]">
+      <section className="fixed w-full border-b border-bgSecondary z-10 lg:hidden top-0">
+        <header className="flex justify-between items-center h-20 w-full bg-background px-5 py-2 z-20 backdrop-blur-md ">
           <div className="flex">
             <Link to="/admin/" className="mb-3">
               <img src={logo} alt="Cardapiei Facil" className="w-24" />
@@ -54,7 +56,7 @@ const HeaderMobile = () => {
         </header>
 
         <div
-          className={`absolute flex-col top-24 left-[200%] rounded-md gap-4 px-12 z-50 h-max w-[90%] backdrop-blur-md bg-[rgba(247,247,247,0.82)] translate-x-[-50%] transition-colorsl  duration-300 ease-linear ${
+          className={`absolute flex-col top-24 left-[200%] rounded-md gap-4 px-12 z-40 h-max w-[90%] backdrop-blur-md bg-[rgba(247,247,247,0.82)] translate-x-[-50%] transition-colorsl  duration-300 ease-linear ${
             displayNav === "flex" && "left-[50%]"
           }`}
         >
@@ -66,7 +68,7 @@ const HeaderMobile = () => {
               }`}
             >
               <p
-                className={`capitalize text-center py-2 bg-bgPrimary rounded-md font-medium`}
+                className={`capitalize text-center py-2 bg-background rounded-md font-medium`}
               >
                 Estabelecimento
               </p>
@@ -80,9 +82,9 @@ const HeaderMobile = () => {
               }`}
             >
               <p
-                className={`capitalize text-center py-2 bg-bgPrimary rounded-md font-medium`}
+                className={`capitalize text-center py-2 bg-background rounded-md font-medium`}
               >
-                Cardapio
+                Cardápio
               </p>
             </Link>
           </div>
@@ -94,14 +96,19 @@ const HeaderMobile = () => {
               }`}
             >
               <p
-                className={`capitalize text-center py-2 bg-bgPrimary rounded-md font-medium`}
+                className={`capitalize text-center py-2 bg-background rounded-md font-medium`}
               >
                 Divulgação
               </p>
             </Link>
+            
           </div>
-        </div>
+          <div className="perfil">
+        <BsFillPersonFill className='icon' />
+        {usuario?.nome}
       </div>
+        </div>
+      </section>
     </>
   );
 };

@@ -13,7 +13,7 @@ const Main = () => {
   };
 
   return (
-    <section className='main'>
+    <section className='flex items-center justify-center bg-background h-[93vh] px-4'>
       {passoAtual === 1 && (
         <FormEstabelecimento
           setPassoAtual={setPassoAtual}
@@ -45,7 +45,7 @@ const Main = () => {
         />
       )}
 
-      {passoAtual === 6 && <Navigate to="/admin/cardapio" />}
+      {passoAtual === 6 && <Navigate to="/login" />}
     </section>
   );
 };

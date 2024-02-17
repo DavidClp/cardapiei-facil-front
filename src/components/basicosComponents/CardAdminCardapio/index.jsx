@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./forms.scss";
 import {
   ButtonRemove,
   ButtonEfeite,
@@ -7,16 +6,24 @@ import {
   ButtonInativo,
 } from "../Buttons";
 import Modal from "../Modal";
-import { FormProduto } from "../../basicosComponents/FormsAdminCardapio";
+import { FormProduto } from "../FormsAdminCardapio";
 
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { formatarParaBRL } from "../../../utils/formataParaBRL";
 import { urlApi } from "../../../constants/urlApi";
+import Toast from "../toast";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "src/componentes/card";
 
 /* const est_id = localStorage.getItem("est_id"); */
-const url = urlApi
+const url = urlApi;
 
 const CardProduto = ({ categoria, refetch }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,11 +51,12 @@ const CardProduto = ({ categoria, refetch }) => {
     setIsModalOpen(false);
   };
 
+  const [imagem2Selecionada, setImagem2Selecionada] = useState(null);
+
   const {
     register,
     handleSubmit,
     reset,
-   /*  getValues, */
     formState: { errors },
   } = useForm();
 
@@ -57,8 +65,8 @@ const CardProduto = ({ categoria, refetch }) => {
     formData.append("nome", dataForm.nome);
     formData.append("valor", dataForm.valor);
     formData.append("descricao", dataForm.descricao);
-    formData.append("imagem", dataForm.imagem[0]);
-    /*     formData.append('ativo', 1); */
+    formData.append("imagem", imagem2Selecionada);
+
     if (dataForm.produtoId) {
       formData.append("produtoId", dataForm.produtoId); // Certifique-se de que o campo seja nomeado corretamente
       putMutate(formData);
@@ -66,16 +74,19 @@ const CardProduto = ({ categoria, refetch }) => {
       mutate(formData);
     }
   };
-  const { mutate } = useMutation(
+
+  const {
+    mutate,
+    isSuccess: isSucessAddProduto,
+    isError: isErrorAddProduto,
+  } = useMutation(
     (formData) => {
-      return axios
-        .post(`${url}api/produtos/${categoria.id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            token: localStorage.getItem("token"),
-          },
-        })
-        .then((response) => response.data);
+      return axios.post(`${url}api/produtos/${categoria.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("token"),
+        },
+      });
     },
     {
       onSuccess: (responseData) => {
@@ -85,21 +96,24 @@ const CardProduto = ({ categoria, refetch }) => {
     }
   );
 
-  const { mutate: putMutate } = useMutation(
+  const {
+    mutate: putMutate,
+    isError: isErrorPut,
+    isSuccess: isSucessPut,
+  } = useMutation(
     (formData) => {
-      return axios
-        .put(`${url}api/produtos/${formData.get("produtoId")}`, formData, {
+      return axios.put(
+        `${url}api/produtos/${formData.get("produtoId")}`,
+        formData,
+        {
           headers: {
             "Content-Type": "multipart/form-data",
             token: localStorage.getItem("token"),
           },
-        })
-        .then((response) => response.data);
+        }
+      );
     },
     {
-      onError: (error) => {
-        console.error("Erro editar produto", error);
-      },
       onSuccess: (responseData) => {
         setIsModalOpen(false);
         refetch();
@@ -107,7 +121,11 @@ const CardProduto = ({ categoria, refetch }) => {
     }
   );
 
-  const { mutate: deleteProduto } = useMutation(
+  const {
+    mutate: deleteProduto,
+    isError: deleteProdutoError,
+    isSuccess: deleteProdutoSucess,
+  } = useMutation(
     (produtoId) =>
       axios.delete(`${url}api/produtos/${produtoId}`, {
         headers: {
@@ -133,7 +151,11 @@ const CardProduto = ({ categoria, refetch }) => {
     });
   };
 
-  const { mutate: putSituacao } = useMutation(
+  const {
+    mutate: putSituacao,
+    isError: isErrorSit,
+    isSuccess: isSucessSit,
+  } = useMutation(
     (formData) => {
       return axios
         .put(`${url}api/produtos/situacao/${formData.id}`, formData, {
@@ -155,33 +177,65 @@ const CardProduto = ({ categoria, refetch }) => {
   );
 
   return (
-    <div className="formContainer">
-      <div className="titulo">
-        <h3>{categoria.nome}</h3>
-      </div>
+    <Card className="w-full">
+      {isSucessAddProduto && (
+        <Toast type="success">Produto Adicionado com Sucesso!</Toast>
+      )}
+      {(isSucessPut || isSucessSit) && (
+        <Toast type="success">Produto Atualizado com Sucesso!</Toast>
+      )}
+
+      {deleteProdutoSucess && (
+        <Toast type="success">Produto Excluído com Sucesso!</Toast>
+      )}
+
+      {(isErrorAddProduto ||
+        deleteProdutoError ||
+        isErrorPut ||
+        isErrorSit) && <Toast type="error" duration={4000}></Toast>}
+      <CardHeader className="flex items-center p-3 border-b-solid border-b-[1px] border-b-cinzaClaro">
+        <CardTitle className="font-semibold capitalize">
+          {categoria.nome}
+        </CardTitle>
+      </CardHeader>
 
       {categoria?.Produtos?.map((produto) => (
-        <div className="cardProduto">
-          <div className="cardContent" onClick={() => openModal(produto)}>
-            {produto.imagem && <img src={produto.imagem} alt="" />}
-            <p>{produto.nome}</p>
-            <p>{formatarParaBRL(parseFloat(produto.valor))}</p>
+        <CardContent className="flex justify-between items-center py-2 px-1 lg:px-4 gap-2 lg:gap-4">
+          <div
+            className="w-full flex justify-between items-center gap-1 lg-gap-3  "
+            onClick={() => openModal(produto)}
+          >
+            {produto.imagem && (
+              <img
+                src={produto.imagem}
+                alt={produto.descricao}
+                className="w-11 h-11 lg:w-16 lg:h-16 object-cover rounded mr-1"
+              />
+            )}
+            <p className="font-medium text-sm lg:text-base">{produto.nome}</p>
+            <p className="text-sm lg:text-base min-w-[53.5px]">
+              {formatarParaBRL(parseFloat(produto.valor))}
+            </p>
           </div>
-          {produto.ativo === 1 ? (
-            <ButtonAtivo onClick={() => handleSituacao(produto)} />
-          ) : (
-            <ButtonInativo onClick={() => handleSituacao(produto)} />
-          )}
-          <ButtonRemove onClick={() => deleteProduto(produto.id)} />
-        </div>
-      ))}
 
-      <div className="containerButtonCardapio">
-        <ButtonEfeite
-          texto={"Adicionar Item"}
-          onClick={() => openModal(null)}
-        />
-      </div>
+          <div className="flex gap-1">
+            {produto.ativo === 1 ? (
+              <ButtonAtivo onClick={() => handleSituacao(produto)} />
+            ) : (
+              <ButtonInativo onClick={() => handleSituacao(produto)} />
+            )}
+            <ButtonRemove onClick={() => deleteProduto(produto.id)} />
+          </div>
+        </CardContent>
+      ))}
+      <CardFooter>
+        <div className="flex items-center justify-center py-4">
+          <ButtonEfeite
+            texto={"Adicionar Item"}
+            onClick={() => openModal(null)}
+          />
+        </div>
+      </CardFooter>
 
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
         <FormProduto
@@ -190,9 +244,10 @@ const CardProduto = ({ categoria, refetch }) => {
           register={register}
           errors={errors}
           selectedProduto={selectedProduto}
+          setImagem2Selecionada={setImagem2Selecionada}
         />
       </Modal>
-    </div>
+    </Card>
   );
 };
 
