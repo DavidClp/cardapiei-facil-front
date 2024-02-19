@@ -1,0 +1,66 @@
+// _variables.scss
+
+$cor-primaria: hsl(0 0% 100%);
+$cor-secundaria: hsl(0 0% 100%);
+$cor-white: white;
+$cor-text: rgb(10, 10, 10);
+$cor-text-secundaria: rgb(255, 255, 255);
+$cor-botao: #3498db;
+$cor-botao-secundaria: rgb(0, 97, 181);
+$cor-botao-hover: rgb(0, 67, 126);
+
+@mixin flexCenter($direction) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin flexJustify($direction) {
+    display: flex;
+    justify-content: center;
+    flex-direction: $direction;
+}
+
+@mixin flexBetween($direction) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin flexBetweenTop($direction) {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: $direction;
+}
+
+@mixin flexAlign($direction) {
+    display: flex;
+    align-items: center;
+    flex-direction: $direction;
+}
+
+@mixin flexJustifyStart() {
+    display: flex;
+    justify-content: start;
+}
+
+@mixin medium-screen {
+    @media screen and (max-width: 1090px) {
+      @content;
+    }
+  }
+  
+@mixin small-screen {
+    @media screen and (max-width: 700px) {
+        @content
+    }
+  }
+  
+@mixin mobile-screen {
+    @media screen and (max-width: 520px) {
+        @content
+    }
+  }
+  
