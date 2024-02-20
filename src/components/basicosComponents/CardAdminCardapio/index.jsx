@@ -193,6 +193,7 @@ const CardProduto = ({ categoria, refetch }) => {
         deleteProdutoError ||
         isErrorPut ||
         isErrorSit) && <Toast type="error" duration={4000}></Toast>}
+        
       <CardHeader className="flex items-center p-3 border-b-solid border-b-[1px] border-b-cinzaClaro">
         <CardTitle className="font-semibold capitalize">
           {categoria.nome}
