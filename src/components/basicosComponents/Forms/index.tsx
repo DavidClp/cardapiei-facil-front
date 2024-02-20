@@ -18,8 +18,8 @@ import { DivInput } from "../DivInput";
 import { Label } from "../Label";
 import LoaderSpin from "../loaders/loader-spin";
 import Toast from "../toast";
-import { Card, CardContent, CardHeader, CardTitle } from "src/componentes/card";
-import { Input } from "src/componentes/input";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../componentes/card";
+import { Input } from "../../../componentes/input";
 import { TextField } from "../../../componentes/text-field";
 import { Form } from "../../../componentes/form";
 const est_id = localStorage.getItem("est_id");
@@ -202,7 +202,7 @@ const FormEstabelecimento = () => {
 
 
         {isSuccess && (
-          <Toast type="success" duration="4000">
+          <Toast type="success" duration={4000}>
             Informações Básicas alteradas com Sucesso!
           </Toast>
         )}

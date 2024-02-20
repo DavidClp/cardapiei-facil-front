@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "src/componentes/card";
+} from "../../../componentes/card";
 import { FaRegUser } from "react-icons/fa6";
 import { Form } from "../../../componentes/form";
 import { Input } from "../../../componentes/input";
