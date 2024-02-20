@@ -96,13 +96,12 @@ export const FormProduto = ({
         <label htmlFor="valor" className="font-semibold">
           Valor
         </label>
-        <input
+        <Input
           type="text"
           name="valor"
           /*         value={valor}
           onChange={handleValorChange} */
           placeholder="0.00"
-          className="rounded-md p-2 w-full focus:outline-none"
           defaultValue={selectedProduto?.valor || ""}
           {...register("valor")}
         />
