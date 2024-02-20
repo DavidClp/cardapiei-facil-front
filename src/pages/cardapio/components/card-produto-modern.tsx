@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { formatarParaBRL } from "../../../utils/formataParaBRL";
 import Modal from "../../../components/basicosComponents/Modal";
-import { Card, CardContent } from "src/componentes/card";
+import { Card, CardContent } from "../../../componentes/card";
 
 export const CardProdutoModern = ({ produto, index }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

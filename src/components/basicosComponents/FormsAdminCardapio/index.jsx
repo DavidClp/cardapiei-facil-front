@@ -18,7 +18,7 @@ import { urlApi } from "../../../constants/urlApi";
 import Modal from "../Modal";
 import { AlertDialog } from "../alert-dialog";
 import Toast from "../toast";
-import { Card, CardContent, CardHeader, CardTitle } from "src/componentes/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../componentes/card";
 import { Input } from "../../../componentes/input";
 import { Label } from "../../../componentes/label";
 const url = urlApi;
