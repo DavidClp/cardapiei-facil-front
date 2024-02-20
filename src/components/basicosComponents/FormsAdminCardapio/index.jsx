@@ -20,6 +20,7 @@ import { AlertDialog } from "../alert-dialog";
 import Toast from "../toast";
 import { Card, CardContent, CardHeader, CardTitle } from "src/componentes/card";
 import { Input } from "../../../componentes/input";
+import { Label } from "../../../componentes/label";
 const url = urlApi;
 
 export const FormProduto = ({
@@ -64,7 +65,7 @@ export const FormProduto = ({
       className="flex flex-col items-center justify-center py-2 lg:p-4 gap-4 w-full"
     >
       {selectedProduto?.id && (
-        <input
+        <Input
           type="hidden"
           name="produtoId"
           id="produtoId"
@@ -73,10 +74,10 @@ export const FormProduto = ({
         />
       )}
       <div className="flex flex-col items-center justify-center gap-2 w-full">
-        <label htmlFor="nome" className="font-semibold">
+        <Label htmlFor="nome" className="font-semibold">
           Nome do produto
-        </label>
-        <input
+        </Label>
+        <Input
           type="text"
           name="nome"
           id="nome"
@@ -93,9 +94,9 @@ export const FormProduto = ({
       </div>
 
       <div className="flex flex-col items-center justify-center gap-2 w-full">
-        <label htmlFor="valor" className="font-semibold">
+        <Label htmlFor="valor" className="font-semibold">
           Valor
-        </label>
+        </Label>
         <Input
           type="text"
           name="valor"
@@ -108,15 +109,15 @@ export const FormProduto = ({
       </div>
 
       <div className="flex flex-col items-center justify-center gap-2 w-full">
-        <label htmlFor="descricao" className="font-semibold">
+        <Label htmlFor="descricao" className="font-semibold">
           Descrição do produto
-        </label>
+        </Label>
         <textarea
           name="descricao"
           id="descricao"
           cols="50"
           rows="3"
-          className="rounded-md p-2 w-full focus:outline-none resize-none"
+          className="rounded-md p-2 w-full outline-primary border border-input"
           placeholder="Exemplo: Melhor Pizza do Mundo!"
           /*  defaultValue={selectedProduto?.descricao && selectedProduto?.descricao !== "null" ? selectedProduto?.descricao : "" } */
           defaultValue={
@@ -132,13 +133,13 @@ export const FormProduto = ({
             <img
               src={imagemSelecionada}
               alt="Imagem Selecionada"
-              className="w-40 h-36 mb-1 bg-background object-cover"
+              className="w-40 h-36 mb-1 bg-accent object-cover"
             />
           </div>
         ) : (
           <div>
             <label
-              className="w-40 h-36 bg-background p-3 rounded inline-block cursor-pointer mb-1"
+              className="w-40 h-36 bg-accent p-3 rounded inline-block cursor-pointer mb-1"
               htmlFor="customFile"
             >
               Clique Aqui para Adicionar uma imagem
@@ -148,20 +149,20 @@ export const FormProduto = ({
 
         {imagemSelecionada ? (
           <label
-            className="bg-background p-1 rounded inline-block cursor-pointer z-50"
+            className="bg-accent p-1 rounded inline-block cursor-pointer z-50"
             onClick={handleRemoverImagem}
           >
             Remover
           </label>
         ) : (
           <>
-            <label
-              className="bg-background p-1 rounded inline-block cursor-pointer"
+            <Label
+              className="bg-accent p-1 rounded inline-block cursor-pointer"
               htmlFor="customFile"
             >
               Adicionar
-            </label>
-            <input
+            </Label>
+            <Input
               type="file"
               className="absolute opacity-0 cursor-pointer"
               id="customFile"
@@ -328,12 +329,11 @@ export const FormCategoria = ({
                   onSubmit={handleEditSubmit}
                   className=" flex flex-col ga-4 w-full"
                 >
-                  <div className="p-3 flex items-center gap-1 w-full border-solid border-cinzaClaro border-t-[1px] justify-between">
-                    <input
+                  <div className="p-3 flex items-center gap-1 w-full border-solid border-accent border-t-[1px] justify-between">
+                    <Input
                       type="text"
                       value={editCategoriaNome}
                       onChange={(e) => setEditCategoriaNome(e.target.value)}
-                      className="rounded p-1 focus:outline-primary"
                     />
                     <div className="flex gap-1">
                       <ButtonComIcon>
@@ -346,7 +346,7 @@ export const FormCategoria = ({
                   </div>
                 </form>
               ) : (
-                <div className="flex items-center p-3 gap-3 border-solid border-cinzaClaro border-t-[1px] w-full justify-between">
+                <div className="flex items-center p-3 gap-3 border-solid border- border-t-[1px] w-full justify-between">
                   <div
                     onClick={() => openEditCategoria(categoria)}
                     className="w-full"
