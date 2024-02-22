@@ -8,26 +8,30 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import { urlApi, urlSite } from "../../../constants/urlApi";
 import { BsFillPersonFill } from "react-icons/bs";
+import { useStore } from "../../../stores/bound";
+
 const url = urlApi
 const urlBasica = urlSite;
 const usuario = sessionStorage.getItem("usuario");
-const est_id = localStorage.getItem("est_id");
 
 const HeaderMobile = () => {
+  const estUrl = useStore((state) => state.estUrl);
+
   const [displayNav, setDisplayNav] = useState("hidden");
 
   const location = useLocation();
+  
   //url
-  const { data } = useQuery(["url", est_id], () => {
+/*   const { data } = useQuery(["url", estId], () => {
     return axios
-      .get(`${url}api/estabelecimentos/get_url/${est_id}`, {
+      .get(`${url}api/estabelecimentos/get_url/${estId}`, {
         headers: {
           token: localStorage.getItem("token"),
         },
       })
       .then((response) => response.data);
   });
-
+ */
   const handleNav = () => {
     if (displayNav === "hidden") {
       setDisplayNav("flex");
@@ -46,7 +50,7 @@ const HeaderMobile = () => {
             </Link>
           </div>
           <div className="flex gap-4">
-            <ButtonVerCardapio url={urlBasica + data} />
+            <ButtonVerCardapio url={urlBasica + estUrl} />
             {displayNav === "hidden" ? (
               <AiOutlineMenu className="text-3xl pointer" onClick={handleNav} />
             ) : (

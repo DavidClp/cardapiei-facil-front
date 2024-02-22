@@ -15,10 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../componentes/card";
-import { FaRegUser } from "react-icons/fa6";
-import { Form } from "../../../componentes/form";
-import { Input } from "../../../componentes/input";
 import { User } from "lucide-react";
+import { useStore } from "../../../stores/bound";
 const url = urlApi;
 
 const Login = () => {
@@ -31,6 +29,11 @@ const Login = () => {
 
   const [logou, setLogou] = useState(0); //GAMBIARRA, ARRUMAR
   const [errorLogin, setErrorLogin] = useState(""); //GAMBIARRA, ARRUMAR
+
+  //zustand
+  const definirEstId = useStore((state) => state.definirEstId)
+  const definirUrl = useStore((state) => state.definirUrl)
+
 
   const onSubmit = (data) => {
     console.log(data);
@@ -46,6 +49,11 @@ const Login = () => {
     {
       onSuccess: (responseData) => {
         const dados = responseData;
+        console.log("DADOS", dados)
+        //zustand
+        definirEstId(dados.est_id);
+        definirUrl(dados.est_url);
+
         //Remover = localStorage
         localStorage.setItem("token", dados.token);
         localStorage.setItem("est_id", dados.est_id);
@@ -55,7 +63,8 @@ const Login = () => {
         sessionStorage.setItem("est_id", dados.est_id);
         sessionStorage.setItem("est_url", dados.est_url);
         localStorage.setItem("usuario", JSON.stringify(dados.usuario));
-        setLogou(1);
+      
+       setLogou(1);
       },
       onError: (error: AxiosError) => {
         if (error.response.status === 401) {

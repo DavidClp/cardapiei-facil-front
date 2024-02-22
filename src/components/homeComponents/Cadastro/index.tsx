@@ -7,7 +7,7 @@ import { useMutation } from "react-query";
 import { urlApi } from "../../../constants/urlApi";
 import HeaderMobile from "../../../pages/home/components/HeaderMobile";
 import Header from "../../../pages/home/components/Header";
-import useEstStore from "../../../stores/estIdStore";
+//import useEstStore from "../../../stores/estIdStore";
 import {
   Card,
   CardContent,
@@ -31,7 +31,7 @@ const Cadastro = () => {
     mutate(data);
   };
 
-  const definirUrl = useEstStore((state) => state.definirUrl);
+ // const definirUrl = useEstStore((state) => state.definirUrl);
 
   const { mutate, isLoading } = useMutation(
     (data) => {
@@ -50,7 +50,7 @@ const Cadastro = () => {
         sessionStorage.setItem("est_id", dados.est_id);
         sessionStorage.setItem("est_url", dados.est_url);
         
-        definirUrl(dados.est_url);
+       // definirUrl(dados.est_url);
         localStorage.setItem("est_url", JSON.stringify(dados.usuario));
         setCadastrou(1);
       },

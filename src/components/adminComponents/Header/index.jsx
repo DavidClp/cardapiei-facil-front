@@ -1,28 +1,28 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/logo.webp";
-import { ButtonVerCardapio } from "../../basicosComponents/Buttons/";
+import { ButtonVerCardapio } from "../../basicosComponents/Buttons";
 import { BsFillPersonFill } from "react-icons/bs";
 import "./header.scss";
 
-import axios from "axios";
-import { useQuery } from "react-query";
-import { urlApi, urlSite } from "../../../constants/urlApi";
-const est_id = localStorage.getItem("est_id");
+import { urlSite } from "../../../constants/urlApi";
+import { useStore } from "../../../stores/bound";
 const usuario = JSON.parse(localStorage.getItem("usuario"));
-const url = urlApi;
 const urlBasica = urlSite;
 
 const Header = () => {
   const location = useLocation();
+
+  const estUrl = useStore((state) => state.estUrl);
+
   //url
-  const { data } = useQuery(["url", est_id], () => {
+  /* const { data } = useQuery(["url", est_id], () => {
     return axios.get(`${url}api/estabelecimentos/get_url/${est_id}`, {
       headers: {
         token: localStorage.getItem("token"),
       },
     });
-  });
+  }); */
 
   return (
     <section className="header23 hidden lg:flex">
@@ -32,7 +32,7 @@ const Header = () => {
             <img src={logo} alt="Cardapiei Facil" />
           </Link>
         </div>
-        <ButtonVerCardapio url={urlBasica + data} />
+        <ButtonVerCardapio url={urlBasica + estUrl} />
 
         <nav>
           <ul>
