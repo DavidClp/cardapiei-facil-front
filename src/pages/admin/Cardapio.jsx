@@ -9,7 +9,7 @@ const Cardapio = () => {
     return <Navigate to="/" />;
   } else {
     return (
-      <section className="min-h-[100vh] bg-background">
+      <section className="min-h-[100vh] bg-background ">
         <HeaderMobile />
         <Header />
         <Main />

@@ -25,6 +25,7 @@ const Login = () => {
         {
             onSuccess: (responseData) => {
                 const dados = responseData;
+                console.log("dados", dados.est_id)
                 //Remover = localStorage
                 localStorage.setItem('token', dados.token);
                 localStorage.setItem('est_id', dados.est_id);
@@ -32,7 +33,7 @@ const Login = () => {
 
                 // e utilizar zustand:
                 setEstId(dados.est_id);
-                setLogou(1);
+                //setLogou(1);
             }
         }
     );

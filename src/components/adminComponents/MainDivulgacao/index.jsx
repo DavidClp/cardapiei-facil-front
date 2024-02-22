@@ -10,16 +10,17 @@ import { ImLink } from "react-icons/im";
 import { AiOutlineQrcode } from "react-icons/ai";
 import { urlSite } from "../../../constants/urlApi";
 import { Navigate } from "react-router-dom";
+import { useStore } from "../../../stores/bound";
 
 const urlPadrao = urlSite;
-/* const UrlCliente = urlPadrao + localStorage.getItem("est_url"); */
-
 const Main = () => {
+  const estUrl = useStore((state) => state.estUrl);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
   const [imageUrl, setImageUrl] = useState("");
-  const UrlCliente = urlPadrao + sessionStorage.getItem("est_url");
+  const UrlCliente = urlPadrao + estUrl;
 
   const openModal = (content) => {
     setModalContent(content);

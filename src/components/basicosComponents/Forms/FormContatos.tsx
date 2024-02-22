@@ -17,19 +17,23 @@ import {
 import { Input } from "../../../componentes/input";
 import { Separator } from "../../../componentes/separator";
 import { PhoneIncoming } from "lucide-react";
-const est_id = localStorage.getItem("est_id");
+const estId = localStorage.getItem("estId");
 const url = urlApi;
+import { useStore } from "../../../stores/bound";
+
 
 export const FormContato = () => {
+  const estId = useStore((state) => state.estId);
+
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
     mutate(data);
   };
 
   //pegar contatos ja registrados para mostrar
-  const { data, isLoading, refetch } = useQuery(["contatos", est_id], () => {
+  const { data, isLoading, refetch } = useQuery(["contatos", estId], () => {
     return axios
-      .get(`${url}api/contatos/${est_id}`, {
+      .get(`${url}api/contatos/${estId}`, {
         headers: {
           token: localStorage.getItem("token"),
         },

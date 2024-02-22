@@ -22,7 +22,6 @@ import {
   CardTitle,
 } from "../../../componentes/card";
 
-/* const est_id = localStorage.getItem("est_id"); */
 const url = urlApi;
 
 const CardProduto = ({ categoria, refetch }) => {
