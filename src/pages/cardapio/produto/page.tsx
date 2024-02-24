@@ -29,10 +29,9 @@ export const ProdutoDetalhe = () => {
   if (produtoData) {
     return (
       <>
-        {/*       <HeaderMobile estabelecimentoCardapio={estabelecimentoCardapio} />
-      <Header estabelecimentoInfo={estabelecimentoInfo} /> */}
-        <section className="flex justify-center px-2 md:px-4 py-12 bg-background h-full">
-          <Card className="flex flex-col w-full">
+      <HeaderMobile/>
+        <section className="flex justify-center px-2 md:px-4 py-5 bg-background h-full">
+          <Card className="mt-16 flex flex-col w-full">
             <CardHeader className="space-y-">
               <div className="flex justify-center mb-6">
                 {produtoData?.imagem && (

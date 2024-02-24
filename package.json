@@ -26,6 +26,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss": "^3.3.5",
     "tailwindcss-animate": "^1.0.7",
+    "utility-types": "^3.11.0",
     "validator": "^13.11.0",
     "web-vitals": "^2.1.4",
     "zod": "^3.22.4",
