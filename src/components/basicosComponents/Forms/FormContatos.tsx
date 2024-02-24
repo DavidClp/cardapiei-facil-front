@@ -5,8 +5,6 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useQuery, useMutation } from "react-query";
 import { urlApi } from "../../../constants/urlApi";
-import { DivInput } from "../DivInput";
-import { Label } from "../Label";
 import {
   Card,
   CardContent,
@@ -17,10 +15,9 @@ import {
 import { Input } from "../../../componentes/input";
 import { Separator } from "../../../componentes/separator";
 import { PhoneIncoming } from "lucide-react";
-const estId = localStorage.getItem("estId");
-const url = urlApi;
 import { useStore } from "../../../stores/bound";
 
+const url = urlApi;
 
 export const FormContato = () => {
   const estId = useStore((state) => state.estId);
@@ -31,6 +28,7 @@ export const FormContato = () => {
   };
 
   //pegar contatos ja registrados para mostrar
+  // @ts-ignore
   const { data, isLoading, refetch } = useQuery(["contatos", estId], () => {
     return axios
       .get(`${url}api/contatos/${estId}`, {
@@ -42,6 +40,7 @@ export const FormContato = () => {
   });
 
   const { mutate: deleteContato } = useMutation(
+    // @ts-ignore
     (contatoId) =>
       axios.delete(`${url}api/contatos/${contatoId}`, {
         headers: {
@@ -59,6 +58,7 @@ export const FormContato = () => {
   );
 
   const { mutate } = useMutation(
+    // @ts-ignore
     (data) => {
       return axios
         .post(`${url}api/contatos`, data, {
@@ -118,6 +118,7 @@ export const FormContato = () => {
 
       <CardFooter>
         {isLoading === false &&
+        // @ts-ignore
           data.map((contato) => (
             <div
               className="flex items-center flex-col justify-center px-6 py-1 w-full"
