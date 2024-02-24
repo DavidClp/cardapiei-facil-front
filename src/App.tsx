@@ -26,8 +26,8 @@ function App() {
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/setup" element={<Setup />} />
         
-        <Route path="/:estabelecimento" element={<Cardapio />} />
-        <Route path="/:estabelecimento/produto/:proId" Component={ProdutoDetalhe} /> 
+        <Route path="/:estUrl" element={<Cardapio />} />
+        <Route path="/:estUrl/produto/:proId" Component={ProdutoDetalhe} /> 
 
         <Route path="/admin" Component={Admin} />
         <Route path="/admin/estabelecimento" Component={Estabelecimento} />
