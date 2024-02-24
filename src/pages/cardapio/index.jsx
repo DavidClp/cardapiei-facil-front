@@ -32,6 +32,10 @@ const Cardapio = () => {
   // Desestruture o objeto estabelecimentoCardapio para obter apenas o estabelecimento
   const { Categoria, ...estabelecimentoInfo } = estabelecimentoCardapio;
 
+  console.log("tudo: ", estabelecimentoCardapio)
+  console.log("estabelecimentoInfo: ", estabelecimentoInfo)
+  console.log("Categoria: ", Categoria)
+
   return (
     <>
       {isLoading ? (

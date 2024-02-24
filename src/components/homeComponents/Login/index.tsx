@@ -41,6 +41,7 @@ const Login = () => {
   };
 
   const { mutate, isError } = useMutation(
+    // @ts-ignore
     (data) => {
       return axios
         .post(`${url}api/usuarios/login`, data)
