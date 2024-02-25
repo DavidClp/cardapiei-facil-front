@@ -213,7 +213,7 @@ const CardProduto = ({ categoria, refetch }) => {
             )}
             <p className="font-medium text-sm lg:text-base">{produto.nome}</p>
             <p className="text-sm lg:text-base min-w-[53.5px]">
-              {formatarParaBRL(parseFloat(produto.valor))}
+              {formatarParaBRL(produto.valor)}
             </p>
           </div>
 

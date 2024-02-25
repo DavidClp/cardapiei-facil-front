@@ -9,15 +9,25 @@ import {
 import React from "react";
 import { useParams } from "react-router-dom";
 import HeaderMobile from "../../../components/cardapioComponents/HeaderMobile";
-import Header from "../../../components/cardapioComponents/Header";
 import { formatarParaBRL } from "../../../utils/formataParaBRL";
 import { Button } from "../../../componentes/button";
 import { PlusCircle } from "lucide-react";
+import { useStore } from "../../../stores/bound";
 
 export const ProdutoDetalhe = () => {
   const { proId } = useParams();
 
   const { data: produtoData, isLoading } = useProdutoDetalhe({ proId });
+
+  const addCarrinho = useStore((state) => state.addCarrinho);
+  const calcularValorTotal = useStore((state) => state.calcularValorTotal);
+  const calcularQuantidadeTotal = useStore((state) => state.calcularQuantidadeTotal);
+
+  function handleAdicionarProduto() {
+    addCarrinho(produtoData);
+    calcularQuantidadeTotal();
+    calcularValorTotal()
+  }
 
   if (isLoading) {
     <section className="flex justify-center px-2 md:px-4 py-12 bg-background h-full">
@@ -53,7 +63,7 @@ export const ProdutoDetalhe = () => {
             </CardContent>
 
             <CardFooter className="mt-auto">
-              <Button className="flex gap-2 w-full">
+              <Button className="flex gap-2 w-full" onClick={handleAdicionarProduto}>
                 <PlusCircle className="w-4" />
                 Adicionar ao pedido
               </Button>

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../../components/cardapioComponents/Header";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import HeaderMobile from "../../components/cardapioComponents/HeaderMobile";
 import { urlApi } from "../../constants/urlApi";

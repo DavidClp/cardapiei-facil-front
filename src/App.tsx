@@ -15,6 +15,7 @@ import Setup from './pages/setup';
 import Planos from './pages/home/planos'
 import { ProdutoDetalhe } from './pages/cardapio/produto/page';
 import Login from './components/homeComponents/Login';
+import { CarrinhoPage } from './pages/cardapio/carrinho';
 
 function App() {
   return (
@@ -26,8 +27,9 @@ function App() {
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/setup" element={<Setup />} />
         
-        <Route path="/:estUrl" element={<Cardapio />} />
+        <Route path="/:estUrl" Component={Cardapio} />
         <Route path="/:estUrl/produto/:proId" Component={ProdutoDetalhe} /> 
+        <Route path="/:estUrl/carrinho" Component={CarrinhoPage} /> 
 
         <Route path="/admin" Component={Admin} />
         <Route path="/admin/estabelecimento" Component={Estabelecimento} />
