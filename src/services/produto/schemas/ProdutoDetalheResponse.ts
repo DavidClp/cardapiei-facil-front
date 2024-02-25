@@ -5,7 +5,7 @@ export const ProdutoDetalheSchema = z.object({
     nome: z.string(),
     cat_id: z.number(),
     descricao: z.string(),
-    valor: z.string(),
+    valor: z.number(),
     imagem: z.string()
 })
 

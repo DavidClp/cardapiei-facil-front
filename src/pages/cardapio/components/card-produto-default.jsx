@@ -38,7 +38,7 @@ console.log(produto)
 
           <span className="flex items-center bg-background py-1 px-2 rounded shadow-sm">
             <p className="text-xs">
-              {formatarParaBRL(parseFloat(produto.valor))}
+              {formatarParaBRL(produto.valor)}
             </p>
           </span>
         </div>

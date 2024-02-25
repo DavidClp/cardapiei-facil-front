@@ -44,7 +44,7 @@ export const CardProdutoModern = ({ produto, index }: Props) => {
               </h3>
 
               <span className="flex items-center bg-background py-1 px-2 rounded shadow-sm text-xs">
-                {formatarParaBRL(parseFloat(produto.valor))}
+                {formatarParaBRL(produto.valor)}
               </span>
             </div>
 
