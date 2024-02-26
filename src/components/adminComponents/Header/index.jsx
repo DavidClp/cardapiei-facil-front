@@ -66,6 +66,16 @@ const Header = () => {
                 Divulgação
               </Link>
             </li>
+            <li>
+              <Link
+                to="/admin/configuracao"
+                className={`link ${
+                  location.pathname === "/admin/configuracao" ? "select" : ""
+                }`}
+              >
+                Configuração
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

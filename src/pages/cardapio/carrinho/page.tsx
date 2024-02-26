@@ -6,13 +6,15 @@ import { Button } from "../../../componentes/button";
 import { Separator } from "../../../componentes/separator";
 import { Card } from "../../../componentes/card";
 import { formatarParaBRL } from "../../../utils/formataParaBRL";
-
-const NUMERO_WHATSAPP = "5569992733353";
+import { cfgtDD } from "../../../services/DD/cfgtDD";
 
 export const CarrinhoPage = () => {
   const carrinho = useStore((state) => state.carrinho);
   const valorTotal = useStore((state) => state.valorTotal);
-
+  const getConfiguracaoByCfgtId = useStore((state) => state.getConfiguracaoByCfgtId);
+  
+  const NUMERO_WHATSAPP = getConfiguracaoByCfgtId(cfgtDD.NUMERO_WHATSAPP_PEDIDO).texto;
+  console.log("NUMERO_WHATSAPP",NUMERO_WHATSAPP)
   function handleEnviarPedido() {
     const produtosMsg = carrinho
       .map((produto) => `\n${produto.quantidade}x ${produto.nome}`)
@@ -21,9 +23,9 @@ export const CarrinhoPage = () => {
     const mensagem = `🍔 NOVO PEDIDO 🍔    
     ${produtosMsg}
     
-Valor Total: ${valorTotal}`;
+Valor Total: ${formatarParaBRL(valorTotal)}`;
 
-    const linkWhatsApp = `http://api.whatsapp.com/send?phone=${NUMERO_WHATSAPP}&text=${encodeURIComponent(
+    const linkWhatsApp = `http://api.whatsapp.com/send?phone=55${NUMERO_WHATSAPP}&text=${encodeURIComponent(
       mensagem
     )}`;
 
