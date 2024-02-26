@@ -1,0 +1,7 @@
+const ENVIAR_PEDIDO = 1;
+const NUMERO_WHATSAPP_PEDIDO = 2;
+
+export const cfgtDD = {
+    ENVIAR_PEDIDO,
+    NUMERO_WHATSAPP_PEDIDO
+}

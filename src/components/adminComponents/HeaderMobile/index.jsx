@@ -104,8 +104,21 @@ const HeaderMobile = () => {
               >
                 Divulgação
               </p>
-            </Link>
-            
+            </Link>    
+          </div>
+          <div className={`p-2 cursor-pointer rounded-lg`}>
+            <Link
+              to="/admin/configuracao"
+              className={`link ${
+                location.pathname === "/admin/configuracao" ? "select" : ""
+              }`}
+            >
+              <p
+                className={`capitalize text-center py-2 bg-background rounded-md font-medium`}
+              >
+                Configuração
+              </p>
+            </Link>    
           </div>
           <div className="perfil">
         <BsFillPersonFill className='icon' />
