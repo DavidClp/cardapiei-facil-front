@@ -31,7 +31,7 @@ const ButtonCadastrar = () => {
 
 const ButtonFakeLoading = () => {
   return (
-    <button className="bg-gray-400 inline-block text-center py-2 px-12 rounded font-medium text-primary-foreground text-base shadow-md transition-colors delay-75 mt-8 cursor-default">
+    <button className="bg-gray-400 inline-block text-center py-2 px-12 rounded font-medium text-primary-foreground text-base shadow-md transition-colors delay-75 mt-8 cursor-default" type="button">
       Criando estabelecimento...
     </button>
   );

@@ -71,7 +71,7 @@ const Main = () => {
   if (isLoading) return <Loader/>
 
   return (
-    <div className="flex flex-col px-2 lg:px-20 gap-6 mt-5 lg:-gap-0 lg:flex-row py-6 h-full bg-background">
+    <div className="flex flex-col px-2 lg:px-20 gap-6 mt-20 lg:mt-5 lg:-gap-0 lg:flex-row py-6 h-full bg-background">
       
       {isSuccess ? <Toast type="success">Categoria Adicionada com Sucesso!</Toast> : null}
       {deleteCategoriaSucess  ? <Toast type="success">Categoria Excluída com Sucesso!</Toast> : null}

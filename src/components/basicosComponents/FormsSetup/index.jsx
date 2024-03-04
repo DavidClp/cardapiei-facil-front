@@ -3,12 +3,12 @@ import "./forms.scss";
 import {
   ButtonAvancar,
   ButtonAvancar2,
-  ButtonVoltar,
   ButtonRemove,
   ButtonCancelar,
   ButtonEfeite,
-} from "../../basicosComponents/Buttons/";
-import { ButtonAdd } from "../../basicosComponents/Buttons/";
+  ButtonFakeLoading,
+} from "../Buttons";
+import { ButtonAdd } from "../Buttons";
 
 import { ImHome } from "react-icons/im";
 import { FaLocationDot } from "react-icons/fa6";
@@ -24,7 +24,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardFooter
+  CardFooter,
 } from "../../../componentes/card";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -49,7 +49,7 @@ const FormEstabelecimento = ({ setPassoAtual }) => {
     mutate(formData);
   };
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (formData) => {
       return axios
         .post(`${url}api/estabelecimentos`, formData, {
@@ -183,7 +183,7 @@ const FormEstabelecimento = ({ setPassoAtual }) => {
               </>
             )}
           </div>
-          <ButtonAvancar />
+          {!isLoading ? <ButtonAvancar /> : <ButtonFakeLoading />}
         </form>
       </CardContent>
     </Card>
@@ -286,8 +286,9 @@ const FormLocalizacao = ({ setPassoAtual, handleVoltar }) => {
           </DivInput>
 
           <div className="flex gap-2 w-full justify-between">
-{/*             <ButtonCancelar onClick={handleVoltar}>Voltar</ButtonCancelar>
- */}            <ButtonEfeite texto={"Continuar"} />
+            {/*             <ButtonCancelar onClick={handleVoltar}>Voltar</ButtonCancelar>
+             */}{" "}
+            <ButtonEfeite texto={"Continuar"} />
           </div>
         </form>
       </CardContent>
@@ -351,65 +352,65 @@ const FormContato = ({ setPassoAtual, handleVoltar }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle  className="flex justify-center gap-2">
-        <BsFillTelephoneInboundFill />
-        Meios de contato do estabelecimento
+        <CardTitle className="flex justify-center gap-2">
+          <BsFillTelephoneInboundFill />
+          Meios de contato do estabelecimento
         </CardTitle>
       </CardHeader>
       <CardContent>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="px-2 py-4 flex flex-col items-center justify-center gap-4 w-full border-b-solid border-b-[1px] border-b-cinzaClaro"
-      >
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-2 w-full">
-          <select
-            name="tipoContato"
-            id="tipoContato"
-            {...register("tipo")}
-            className="rounded p-2 border w-40 text-sm"
-          >
-            <option value="">Escolha</option>
-            <option value="telefone">Telefone</option>
-            <option value="whatsapp">Whatsapp</option>
-            <option value="email">E-mail</option>
-          </select>
-          <div className="flex justify-center items-center w-[90%] lg:w-[75%] gap-2 lg:px-4">
-            <Input
-              type="text"
-              name="contato"
-              id="contato"
-              {...register("contato")}
-            />
-            <ButtonAdd />
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="px-2 py-4 flex flex-col items-center justify-center gap-4 w-full border-b-solid border-b-[1px] border-b-cinzaClaro"
+        >
+          <div className="flex flex-col items-center justify-center gap-2 w-full">
+            <select
+              name="tipoContato"
+              id="tipoContato"
+              {...register("tipo")}
+              className="rounded p-2 border w-full text-sm"
+            >
+              <option value="">Escolha</option>
+              <option value="telefone">Telefone</option>
+              <option value="whatsapp">Whatsapp</option>
+              <option value="email">E-mail</option>
+            </select>
+            <div className="flex justify-center items-center w-full gap-2 ">
+              <Input
+                type="text"
+                name="contato"
+                id="contato"
+                {...register("contato")}
+              />
+              <ButtonAdd />
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
       </CardContent>
 
-      <CardFooter>
-      {isLoading === false &&
-        data.map((contato) => (
-          <div
-            className="flex items-center flex-col justify-center px-6 py-1"
-            key={contato.id}
-          >
-            <div className="rounded p-2 lg:w-[30%] text-center font-medium capitalize">
-              <p>{contato.tipo}</p>
-            </div>
-
-            <div className="flex gap-2 w-full items-center">
-              <div className="rounded p-2 bg-corTextSecundaria w-[90%] text-sm">
-                <p>{contato.contato}</p>
+      <CardFooter className="flex flex-col">
+        {isLoading === false &&
+          data.map((contato) => (
+            <div
+              className="flex flex-col justify-center px-6 py-1 w-full"
+              key={contato.id}
+            >
+              <div className="rounded p-2 lg:w-[30%] font-medium capitalize">
+                <p>{contato.tipo}</p>
               </div>
-              <ButtonRemove onClick={() => deleteContato(contato.id)} />
+
+              <div className="flex gap-2 w-full items-center">
+                <div className="rounded p-2 bg-accent w-[90%] text-sm">
+                  <p>{contato.contato}</p>
+                </div>
+                <ButtonRemove onClick={() => deleteContato(contato.id)} />
+              </div>
             </div>
-          </div>
-        ))}
-      <div className="flex justify-end p-4">
+          ))}
+      </CardFooter>
+      <div className="flex justify-end pb-4 pr-4">
         {/*        <ButtonVoltar onClick={handleVoltar} /> */}
         <ButtonAvancar2 setPassoAtual={setPassoAtual} />
       </div>
-      </CardFooter>
     </Card>
   );
 };
@@ -468,25 +469,24 @@ const FormHorario = ({ setPassoAtual, handleVoltar }) => {
     }
   );
   return (
-    <Card>
+    <Card className="w-full sm:w-[70%] md:w-[40%] ">
       <CardHeader>
-        <CardTitle  className="flex justify-center gap-2">
-        <AiFillClockCircle />
-        Horários de atendimento
+        <CardTitle className="flex justify-center gap-2">
+          <AiFillClockCircle />
+          Horários de atendimento
         </CardTitle>
       </CardHeader>
 
       <CardContent>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-center py-2 lg:p-4 gap-4 w-full border-b-solid border-b-[1px] border-b-cinzaClaro"
-      >
-        <div className="flex flex-col items-center justify-center gap-3 w-full lg:flex-row">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-center py-2 lg:p-4 gap-4 w-full border-b-solid border-b-[1px] border-b-cinzaClaro"
+        >
           <select
             name="dia"
             id="dia"
             {...register("dia")}
-            className="rounded p-2 text-sm w-52"
+            className="rounded-md p-2 w-full outline-primary border border-input"
           >
             <option value=""></option>
             <option value="Todos os dias">Todos os dias</option>
@@ -500,54 +500,53 @@ const FormHorario = ({ setPassoAtual, handleVoltar }) => {
             <option value="Terça Feira">Sexta-feira</option>
             <option value="Sabado">Sabado</option>
           </select>
-          <div className="flex items-center justify-center gap-2">
+
+          <div className="flex items-center justify-between gap-3 w-full">
             <Input
               type="time"
               name="hor_abre"
               id="hor_abre"
               {...register("hor_abre")}
-              className="rounded p-1 bg-corTextSecundaria w-24"
+              className="w-32"
             />
             <Input
               type="time"
               name="hor_fecha"
               id="hor_fecha"
               {...register("hor_fecha")}
-              className="rounded p-1 bg-corTextSecundaria w-24"
+              className="w-32"
             />
             <ButtonAdd />
           </div>
-        </div>
-      </form>
+        </form>
       </CardContent>
-      <CardFooter>
-      {isLoading === false &&
-        data.map((horario) => (
-          <div
-            className="flex items-center flex-col justify-center py-2 px-6 gap-1 w-full"
-            key={horario.id}
-          >
-            <div className="rounded p-2 bg-corTextSecundaria">
-              <p>{horario.dia}</p>
-            </div>
-
-            <div className="flex items-center justify-center rounded p-2 gap-3 w-full">
-              <div className="flex items-center justify-center p-2 gap-3 bg-corTextSecundaria rounded w-[90%]">
-                <p>Das</p>
-                <p className="font-medium">{horario.hor_abre}</p>
-                <p>até</p>
-                <p className="font-medium">{horario.hor_fecha}</p>
+      <CardFooter className="flex flex-col">
+        {isLoading === false &&
+          data.map((horario) => (
+            <div
+              className="flex flex-col items-center justify-center py-2 px-6 gap-1 w-full"
+              key={horario.id}
+            >
+              <div className="rounded p-2 bg-accent">
+                <p>{horario.dia}</p>
               </div>
-              <ButtonRemove onClick={() => deleteHorario(horario.id)} />
-            </div>
-          </div>
-        ))}
 
-      <div className="flex gap-2 w-full justify-between p-4">
+              <div className="flex items-center justify-center rounded p-2 gap-3 w-full">
+                <div className="flex items-center justify-center p-2 gap-3 bg-accent rounded w-[90%]">
+                  <p>Das</p>
+                  <p className="font-medium">{horario.hor_abre}</p>
+                  <p>até</p>
+                  <p className="font-medium">{horario.hor_fecha}</p>
+                </div>
+                <ButtonRemove onClick={() => deleteHorario(horario.id)} />
+              </div>
+            </div>
+          ))}
+      </CardFooter>
+      <div className="flex gap-2 w-full justify-between pb-4 px-4">
         <ButtonCancelar onClick={handleVoltar}>Voltar</ButtonCancelar>
         <ButtonAvancar2 setPassoAtual={setPassoAtual} />
       </div>
-      </CardFooter>
     </Card>
   );
 };
@@ -587,67 +586,67 @@ const FormSenha = ({ setPassoAtual, handleVoltar }) => {
   return (
     <Card className="w-full sm:w-[50%]">
       <CardHeader>
-        <CardTitle  className="flex justify-center gap-2">
-        <GiPadlock />
-       Segurança
+        <CardTitle className="flex justify-center gap-2">
+          <GiPadlock />
+          Segurança
         </CardTitle>
       </CardHeader>
 
       <CardContent>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center justify-center py-2 lg:p-4 gap-4 w-full"
-      >
-        <DivInput className="input">
-          <Label htmlFor="senha">Senha</Label>
-          <Input
-            type="password"
-            name="senha"
-            id="senha"
-            placeholder="********"
-            className={`rounded py-1 px-2 w-full ${
-              errors?.senha && "outline-rose-500"
-            }`}
-            {...register("senha", { required: true, minLength: 8 })}
-          />
-          {errors?.senha?.type === "required" && (
-            <p className="text-rose-500">senha é requerido</p>
-          )}
-          {errors?.senha?.type === "minLength" && (
-            <p className="text-rose-500">
-              Senha precisa no minimo 8 caracteres
-            </p>
-          )}
-        </DivInput>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-center py-2 lg:p-4 gap-4 w-full"
+        >
+          <DivInput className="input">
+            <Label htmlFor="senha">Senha</Label>
+            <Input
+              type="password"
+              name="senha"
+              id="senha"
+              placeholder="********"
+              className={`rounded py-1 px-2 w-full ${
+                errors?.senha && "outline-rose-500"
+              }`}
+              {...register("senha", { required: true, minLength: 8 })}
+            />
+            {errors?.senha?.type === "required" && (
+              <p className="text-rose-500">senha é requerido</p>
+            )}
+            {errors?.senha?.type === "minLength" && (
+              <p className="text-rose-500">
+                Senha precisa no minimo 8 caracteres
+              </p>
+            )}
+          </DivInput>
 
-        <DivInput className="input">
-          <Label htmlFor="confirmaSenha">Confirme sua senha</Label>
-          <Input
-            type="password"
-            name="confirmaSenha"
-            id="confirmaSenha"
-            placeholder="********"
-            className={`rounded py-1 px-2 w-full ${
-              errors?.confirmaSenha && "outline-rose-500"
-            }`}
-            {...register("confirmaSenha", {
-              required: true,
-              validate: (value) => value === watchSenha,
-            })}
-          />
-          {errors?.confirmaSenha?.type === "required" && (
-            <p className="text-rose-500">Senha é requerido</p>
-          )}
-          {errors?.confirmaSenha?.type === "validate" && (
-            <p className="text-rose-500">Senhas não estao iguais</p>
-          )}
-        </DivInput>
+          <DivInput className="input">
+            <Label htmlFor="confirmaSenha">Confirme sua senha</Label>
+            <Input
+              type="password"
+              name="confirmaSenha"
+              id="confirmaSenha"
+              placeholder="********"
+              className={`rounded py-1 px-2 w-full ${
+                errors?.confirmaSenha && "outline-rose-500"
+              }`}
+              {...register("confirmaSenha", {
+                required: true,
+                validate: (value) => value === watchSenha,
+              })}
+            />
+            {errors?.confirmaSenha?.type === "required" && (
+              <p className="text-rose-500">Senha é requerido</p>
+            )}
+            {errors?.confirmaSenha?.type === "validate" && (
+              <p className="text-rose-500">Senhas não estao iguais</p>
+            )}
+          </DivInput>
 
-        <div className="flex gap-2 w-full justify-between">
-          <ButtonCancelar onClick={handleVoltar}>Voltar</ButtonCancelar>
-          <ButtonEfeite texto={"Continuar"} />
-        </div>
-      </form>
+          <div className="flex gap-2 w-full justify-between">
+            <ButtonCancelar onClick={handleVoltar}>Voltar</ButtonCancelar>
+            <ButtonEfeite texto={"Continuar"} />
+          </div>
+        </form>
       </CardContent>
     </Card>
   );

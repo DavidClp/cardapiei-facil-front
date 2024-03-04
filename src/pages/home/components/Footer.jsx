@@ -19,7 +19,7 @@ const Footer = () => {
         </div>
 
         <div className="flex gap-4 items-center justify-center">
-          <Link to="https://wa.me/5569992733353" target="_blank">
+          <Link to="https://wa.me/5569993404498" target="_blank">
             <img src={whatsapp} alt="Icon do Whatsapp" className="w-14"/>
           </Link>
           <Link to="https://www.instagram.com/cardapiei_facil/" target="_blank">

@@ -22,7 +22,7 @@ const Header = () => {
         {/*    <p>Você está a poucos passos de ter o seu cardápio online</p> */}
       </div>
 
-      <Link to="https://wa.me/5569992733353" target="_blank">
+      <Link to="https://wa.me/5569993404498" target="_blank">
         <ButtonAjuda />
       </Link>
     </section>
