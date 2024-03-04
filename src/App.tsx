@@ -15,7 +15,8 @@ import Setup from './pages/setup';
 import Planos from './pages/home/planos'
 import { ProdutoDetalhe } from './pages/cardapio/produto/page';
 import Login from './components/homeComponents/Login';
-import { CarrinhoPage } from './pages/cardapio/carrinho';
+import { CarrinhoPage } from './pages/cardapio/carrinho/page';
+import { Configuracao } from './pages/admin/configuracao/page';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/admin/perfil" Component={Perfil} />
         <Route path="/admin/divulgacao" Component={Divulgacao} />
         <Route path="/admin/cardapio" Component={CardapioAdm} />
+        <Route path="/admin/configuracao" Component={Configuracao} />
       </Routes>
     </BrowserRouter>
   );
