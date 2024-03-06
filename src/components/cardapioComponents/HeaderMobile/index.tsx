@@ -40,7 +40,7 @@ const HeaderMobile = () => {
   return (
     <>
       <div className="fixed w-full border-b border-bgSecondary z-10">
-        <header className="flex justify-between items-center h-16 w-full bg-background px-5 py-2 lg:hidden z-20 backdrop-blur-md ">
+        <header className="flex justify-between items-center h-16 w-full bg-background px-5 py-2  z-20 backdrop-blur-md ">
           <div className="flex items-center">
             <Link to={`/${estUrl}`}>
               <img

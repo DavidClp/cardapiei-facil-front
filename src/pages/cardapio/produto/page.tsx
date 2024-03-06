@@ -48,7 +48,7 @@ export const ProdutoDetalhe = () => {
                   <img
                     src={produtoData?.imagem}
                     alt={produtoData.nome}
-                    className="w-full md:w-[70%] rounded object-cover shadow-sm"
+                    className="w-full md:w-[70%] lg:w-[40%] rounded object-cover shadow-sm"
                   />
                 )}
               </div>

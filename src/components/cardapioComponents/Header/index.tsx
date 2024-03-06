@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <>
       <section className="flex flex-col lg:flex-row items-center justify-center gap-2 bg-background">
-        <div className="mt-20 lg:mt-0 ls:mt-2">
+        <div className="mt-20 lg:mt-24">
           <img
             src={estalecimentoCardapio.logo}
             alt="Logo do Estabelecimento"
