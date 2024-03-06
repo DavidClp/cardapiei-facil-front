@@ -316,7 +316,6 @@ export const FormCategoria = ({
               className="rounded p-2 w-full focus:outline-primary"
               {...register("nome", { required: true, minLength: 1 })}
             />
-            {console.log(errors.nome)}
             <ButtonAdd />
           </div>
         </form>

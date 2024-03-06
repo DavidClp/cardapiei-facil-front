@@ -23,7 +23,6 @@ export const CarrinhoPage = () => {
   const getConfiguracaoByCfgtId = useStore(
     (state) => state.getConfiguracaoByCfgtId
   );
-
   const {
     register,
     handleSubmit,
@@ -33,7 +32,12 @@ export const CarrinhoPage = () => {
   const NUMERO_WHATSAPP = getConfiguracaoByCfgtId(
     cfgtDD.NUMERO_WHATSAPP_PEDIDO
   ).texto;
-
+  const obrigaNome = getConfiguracaoByCfgtId(
+    cfgtDD.CARRINHO_OBRIGA_NOME
+  ).numero;
+  const obrigaEndereco = getConfiguracaoByCfgtId(
+    cfgtDD.CARRINHO_OBRIGA_ENDERECO_ENTREGA
+  ).numero;
   function handleEnviarPedido(data: FormProps) {
     const produtosMsg = carrinho
       .map((produto) => `\n${produto.quantidade}x ${produto.nome}`)
@@ -86,7 +90,7 @@ Endereço entrega: ${data.enderecoEntrega}`;
               <p className="text-rose-500">Nome é requirido</p>
             )}
             <Input
-              {...register("nomeCliente", {required: true})}
+              {...register("nomeCliente", {required: !!obrigaNome})}
               className=""
               placeholder="Nome"
             />
@@ -101,7 +105,7 @@ Endereço entrega: ${data.enderecoEntrega}`;
                 errors?.enderecoEntrega ? "focus:outline-red-500" : ""
               }`}
               placeholder="Endereço de entrega"
-              {...register("enderecoEntrega", { required: true })}
+              {...register("enderecoEntrega", { required: !!obrigaEndereco })}
             />
           </div>
           <Button type="submit" className="flex gap-2 w-full mt-auto">
