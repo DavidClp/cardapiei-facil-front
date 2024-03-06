@@ -5,7 +5,6 @@ import Modal from "../../../components/basicosComponents/Modal";
 export const CardProdutoDefault = ({ produto, index }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imagemSelecionada, setimagemSelecionada] = useState(false);
-console.log(produto)
   const openModal = (imagem) => {
     setimagemSelecionada(imagem);
     setIsModalOpen(true);
