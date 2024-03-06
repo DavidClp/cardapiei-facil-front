@@ -36,7 +36,6 @@ const Login = () => {
 
 
   const onSubmit = (data) => {
-    console.log(data);
     mutate(data);
   };
 
@@ -50,7 +49,6 @@ const Login = () => {
     {
       onSuccess: (responseData) => {
         const dados = responseData;
-        console.log("DADOS", dados)
         //zustand
         definirEstId(dados.est_id);
         definirUrl(dados.est_url);
