@@ -1,5 +1,4 @@
 import { formatarParaBRL } from "../../../../utils/formataParaBRL";
-import { useStore } from "../../../../stores/bound";
 import { CarrinhoProps } from "../../../../stores/carrinho/carrinho-slice-store";
 
 
@@ -20,7 +19,7 @@ ${nomeCliente ? `Cliente: ${nomeCliente}\n` : ''}${produtosMsg}
     
 Valor Total: ${formatarParaBRL(valorTotal)}
 
-${enderecoEntrega ? `Endereço entrega: ${enderecoEntrega}` : ''}`;
+${enderecoEntrega ? `Endereço de entrega: ${enderecoEntrega}` : ''}`;
 
 return mensagem
 }
