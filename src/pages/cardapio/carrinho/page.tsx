@@ -9,8 +9,9 @@ import { formatarParaBRL } from "../../../utils/formataParaBRL";
 import { cfgtDD } from "../../../services/DD/cfgtDD";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../componentes/input";
-import { Label } from "../../../componentes/label";
 import { ArrowRightCircle } from "lucide-react";
+import { criaMensagemPedido } from "./functions/criaMensagemPedido";
+import { useNavigate } from "react-router-dom";
 
 export interface FormProps {
   nomeCliente: string;
@@ -23,6 +24,14 @@ export const CarrinhoPage = () => {
   const getConfiguracaoByCfgtId = useStore(
     (state) => state.getConfiguracaoByCfgtId
   );
+  const zerarCarrinho = useStore(
+    (state) => state.zerarCarrinho
+  );
+  const estUrl = useStore(
+    (state) => state.estUrl
+  );
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -38,25 +47,19 @@ export const CarrinhoPage = () => {
   const obrigaEndereco = getConfiguracaoByCfgtId(
     cfgtDD.CARRINHO_OBRIGA_ENDERECO_ENTREGA
   ).numero;
+
   function handleEnviarPedido(data: FormProps) {
-    const produtosMsg = carrinho
-      .map((produto) => `\n${produto.quantidade}x ${produto.nome}`)
-      .join("");
+    const nomeCliente = data.nomeCliente
+    const enderecoEntrega = data.enderecoEntrega
+    const mensagem = criaMensagemPedido({carrinho, valorTotal, nomeCliente, enderecoEntrega})
 
-    const mensagem = `🍔 NOVO PEDIDO 🍔    
-Cliente: ${data.nomeCliente}
-    
-    ${produtosMsg}
-    
-Valor Total: ${formatarParaBRL(valorTotal)}
-
-Endereço entrega: ${data.enderecoEntrega}`;
-
-    const linkWhatsApp = `http://api.whatsapp.com/send?phone=55${NUMERO_WHATSAPP}&text=${encodeURIComponent(
+    const linkWhatsApp = `https://api.whatsapp.com/send?phone=55${NUMERO_WHATSAPP}&text=${encodeURIComponent(
       mensagem
     )}`;
 
-    window.open(linkWhatsApp);
+   window.open(linkWhatsApp, '_blank');
+   navigate("..",  { relative: "path" })
+   zerarCarrinho();
   }
 
   return (

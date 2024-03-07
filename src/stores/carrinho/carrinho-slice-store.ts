@@ -5,13 +5,14 @@ export type CarrinhoProps = ProdutoDetalheResponse & { quantidade: number };
 
 export interface CarrinhoStore {
   carrinho: CarrinhoProps[];
-  valorTotal: number,
-  quantidadeTotal: number
+  valorTotal: number;
+  quantidadeTotal: number;
 
   addCarrinho: (produto: ProdutoDetalheResponse) => void;
   removeProduto: (proId: number) => void;
   calcularValorTotal: () => void;
   calcularQuantidadeTotal: () => void;
+  zerarCarrinho: () => void;
 }
 
 export const createCarrinhoSlice: StateCreator<
@@ -42,7 +43,7 @@ export const createCarrinhoSlice: StateCreator<
       };
     }),
 
-    removeProduto: (proId) =>
+  removeProduto: (proId) =>
     set((state) => {
       const carrinhoAtualizado = state.carrinho.map((produto) =>
         produto.id === proId
@@ -60,12 +61,27 @@ export const createCarrinhoSlice: StateCreator<
       return { carrinho };
     }),
 
+  calcularValorTotal: () =>
+    set((state) => ({
+      valorTotal: state.carrinho.reduce(
+        (accumulator, produto) =>
+          accumulator + produto.valor * produto.quantidade,
+        0
+      ),
+    })),
 
-    calcularValorTotal: () => set((state) => ({
-      valorTotal: state.carrinho.reduce((accumulator, produto) => accumulator + (produto.valor * produto.quantidade), 0)
-    })),  
+  calcularQuantidadeTotal: () =>
+    set((state) => ({
+      quantidadeTotal: state.carrinho.reduce(
+        (accumulator, produto) => accumulator + produto.quantidade,
+        0
+      ),
+    })),
 
-    calcularQuantidadeTotal: () => set((state) => ({
-      quantidadeTotal: state.carrinho.reduce((accumulator, produto) => accumulator + produto.quantidade, 0)
-    })),  
+  zerarCarrinho: () =>
+    set(() => ({
+      carrinho: [],
+      valorTotal: 0,
+      quantidadeTotal: 0,
+    })),
 });
