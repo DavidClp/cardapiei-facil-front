@@ -8,14 +8,13 @@ import { ButtonAjuda } from "../../basicosComponents/Buttons";
 
 const Header = () => {
   return (
-    <section className="header px-2">
+    <section className="header px-2 border-b border-bgSecondary">
       <div className="content">
         <div className="flex items-center">
           {/*         <Link to="/" className="mb-3"> */}
           <img src={logo} alt="Cardapiei Facil" className="w-24" />
           {/*       </Link> */}
           {/*   <Link to="/"> */}
-          <p className="font-medium text-lg ml-2">Cardápiei Fácil</p>
           {/*     </Link> */}
         </div>
 

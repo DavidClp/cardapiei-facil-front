@@ -90,9 +90,6 @@ const FormEstabelecimento = ({ setPassoAtual }) => {
 
   return (
     <Card
-      /* w-full lg:w-[60%]  */
-      className="
-    mt-20 lg:mt-0"
     >
       <CardHeader>
         <CardTitle className="flex justify-center gap-2">
@@ -104,7 +101,7 @@ const FormEstabelecimento = ({ setPassoAtual }) => {
       <CardContent>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="p-5 flex flex-col items-center justify-center gap-4"
+          className="flex flex-col items-center justify-center gap-4"
         >
           <DivInput className="input">
             <Label htmlFor="nome">Nome do estabelecimento</Label>

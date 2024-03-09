@@ -10,7 +10,7 @@ import Estabelecimento from './pages/admin/estabelecimento';
 import Divulgacao from './pages/admin/divulgacao';
 import Perfil from './pages/admin/perfil';
 
-import Cadastro from './components/homeComponents/Cadastro';
+import Cadastro from './pages/Cadastro/page';
 import Setup from './pages/setup';
 import Planos from './pages/home/planos'
 import { ProdutoDetalhe } from './pages/cardapio/produto/page';
