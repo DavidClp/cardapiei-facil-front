@@ -6674,6 +6674,11 @@ lucide-react@^0.316.0:
   resolved "https://registry.npmjs.org/lucide-react/-/lucide-react-0.316.0.tgz"
   integrity sha512-dTmYX1H4IXsRfVcj/KUxworV6814ApTl7iXaS21AimK2RUEl4j4AfOmqD3VR8phe5V91m4vEJ8tCK4uT1jE5nA==
 
+lucide@^0.352.0:
+  version "0.352.0"
+  resolved "https://registry.npmjs.org/lucide/-/lucide-0.352.0.tgz"
+  integrity sha512-lymnyERxR/7Ho26Hx/MWgYXxyvOdNuE0gaNky4adC6NwtS9Vn9N6ciYUyXHw6QQVls4wbfvod4q0MXrE3FEDWA==
+
 magic-string@^0.25.0, magic-string@^0.25.7:
   version "0.25.9"
   resolved "https://registry.npmjs.org/magic-string/-/magic-string-0.25.9.tgz"

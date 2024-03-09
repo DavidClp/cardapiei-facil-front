@@ -120,7 +120,6 @@ const Main = () => {
                     type="radio"
                     value={0}
                     className="w-6"
-                    defaultChecked
                     {...register(`${cfgtDD.CARRINHO_OBRIGA_NOME}`)}
                   />
                   <Label>Não</Label>
@@ -145,7 +144,6 @@ const Main = () => {
                     type="radio"
                     value={0}
                     className="w-6"
-                    defaultChecked
                     {...register(`${cfgtDD.CARRINHO_OBRIGA_ENDERECO_ENTREGA}`)}
                   />
                   <Label>Não</Label>

@@ -16,7 +16,7 @@ const ButtonForm = () => {
       type="submit"
       className="bg-primary inline-block text-center py-2 px-12 rounded font-medium text-primary-foreground hover:bg-primaryHover text-base shadow-md transition-colors delay-75"
     >
-      salvar
+      Salvar
     </button>
   );
 };

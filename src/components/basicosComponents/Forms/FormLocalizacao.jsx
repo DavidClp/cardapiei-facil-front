@@ -15,11 +15,13 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../componentes/card";
+import Toast from "../toast";
 const est_id = localStorage.getItem("est_id");
 const url = urlApi;
 
 export const FormLocalizacao = () => {
   const { register, handleSubmit } = useForm();
+  
   const onSubmit = (dataLocalizacao) => {
     mutate(dataLocalizacao);
   };
@@ -36,7 +38,7 @@ export const FormLocalizacao = () => {
       .then((response) => response.data);
   });
 
-  const { mutate } = useMutation(
+  const { mutate, isSuccess } = useMutation(
     // @ts-ignore
     (dataLocalizacao) => {
       return axios
@@ -47,11 +49,6 @@ export const FormLocalizacao = () => {
         })
         .then((response) => response.data);
     },
-    {
-      onSuccess: (responseData) => {
-        /*   const dados = responseData; */
-      },
-    }
   );
 
   if (isLoading) {
@@ -60,6 +57,8 @@ export const FormLocalizacao = () => {
 
   return (
     <Card>
+       {isSuccess ? <Toast type="success">Endereço Atualizado com Sucesso!</Toast> : null}
+
       <CardHeader>
         <CardTitle className="flex justify-center gap-2">
         <FaLocationDot />

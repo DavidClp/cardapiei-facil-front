@@ -1,3 +1,4 @@
+import {useState} from "react"
 import { useProdutoDetalhe } from "../../../stores/produto/use-produto-detalhe";
 import {
   Card,
@@ -13,9 +14,12 @@ import { formatarParaBRL } from "../../../utils/formataParaBRL";
 import { Button } from "../../../componentes/button";
 import { PlusCircle } from "lucide-react";
 import { useStore } from "../../../stores/bound";
+import Toast from "../../../components/basicosComponents/toast";
 
 export const ProdutoDetalhe = () => {
   const { proId } = useParams();
+
+  const [ativarToast, setAtivarToast] = useState(false)
 
   const { data: produtoData, isLoading } = useProdutoDetalhe({ proId });
 
@@ -26,7 +30,8 @@ export const ProdutoDetalhe = () => {
   function handleAdicionarProduto() {
     addCarrinho(produtoData);
     calcularQuantidadeTotal();
-    calcularValorTotal()
+    calcularValorTotal();
+    setAtivarToast(true);
   }
 
   if (isLoading) {
@@ -39,8 +44,9 @@ export const ProdutoDetalhe = () => {
   if (produtoData) {
     return (
       <>
+      {ativarToast ? <Toast type="success"> {produtoData?.nome} Adicionado ao Carrinho!</Toast> : null}
       <HeaderMobile/>
-        <section className="flex justify-center px-2 md:px-4 py-5 bg-background h-full">
+        <section className="flex justify-center px-2 md:px-4 py-5 bg-background min-h-full">
           <Card className="mt-16 flex flex-col w-full">
             <CardHeader className="space-y-">
               <div className="flex justify-center mb-6">
