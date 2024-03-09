@@ -210,59 +210,6 @@ const FormEstabelecimento = () => {
   );
 };
 
-const FormCadastro = ({
-  handleSubmit,
-  onSubmit,
-  register,
-  errors,
-  isLoading,
-}) => {
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center justify-center gap-4 w-80 sm:w-96"
-    >
-      <DivInput>
-        <Label htmlFor="nome">Seu nome</Label>
-        <Input
-          type="text"
-          name="nome"
-          id="nome"
-          className={`rounded p-2 w-full ${errors?.nome && "outline-rose-500"}`}
-          {...register("nome", { required: true })}
-        />
-        {errors?.nome?.type === "required" && (
-          <p className="text-rose-500">Nome é requerido</p>
-        )}
-      </DivInput>
-
-      <DivInput>
-        <Label htmlFor="email">E-mail</Label>
-        <Input
-          type="text"
-          name="email"
-          id="email"
-          className={`rounded-md p-2 w-full  ${
-            errors?.email && "outline-rose-500"
-          }`}
-          {...register("email", {
-            required: true,
-            validate: (value) => validator.isEmail(value),
-          })}
-        />
-        {errors?.email?.type === "required" && (
-          <p className="text-rose-500">E-mail é requerido</p>
-        )}
-        {errors?.email?.type === "validate" && (
-          <p className="ext-rose-500">E-mail Inválido</p>
-        )}
-      </DivInput>
-
-      {!isLoading ? <ButtonCadastrar /> : <ButtonFakeLoading />}
-    </form>
-  );
-};
-
 const FormLogin = ({
   handleSubmit,
   onSubmit,
@@ -327,4 +274,4 @@ const FormLogin = ({
   );
 };
 
-export { FormEstabelecimento, FormCadastro, FormLogin };
+export { FormEstabelecimento, FormLogin };
