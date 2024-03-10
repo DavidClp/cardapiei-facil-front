@@ -24,7 +24,7 @@ export const CardProdutoModern = ({ produto, index }: Props) => {
     <>
       <Card
         key={index}
-        className="flex items-center w-full bg-background px-2 md:px-3 py-2 "
+        className="flex items-center w-full bg-background px-2 md:px-3 py-2"
       >
         <div onClick={() => openModal(produto?.imagem)}>
           {produto.imagem ? (

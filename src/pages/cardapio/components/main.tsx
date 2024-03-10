@@ -1,46 +1,23 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import "tailwindcss/tailwind.css";
 import {CardProdutoDefault} from "./card-produto-default"
 import {CardProdutoModern} from "./card-produto-modern"
 import { useStore } from "../../../stores/bound";
+import { CategoriasScroll } from "./categorias-scroll";
 
 const Main = () => {
   const categorias = useStore(
     (state) => state.categoriasProdutos
   );
-  const [categoriaAtiva, setCategoriaAtiva] = useState(categorias[0].nome);
   const menuRef = useRef(null); // Ref para a seção de menu
 
-  const scrollToCategoria = (categoriaNome) => {
-    if (menuRef.current) {
-      const categoriaElement = menuRef.current.querySelector(
-        `.menuCategoria[data-categoria="${categoriaNome}"]`
-        );
-      if (categoriaElement) {
-        categoriaElement.scrollIntoView({ behavior: "smooth" });
-        setCategoriaAtiva(categoriaNome);
-      }
-    }
-  };
-
   return (
-    <section className="flex justify-center px-2 md:px-4 py-12 bg-background">
-      <aside className="hidden lg:flex flex-col lg:w-[30%] lg:h-[80vh] sm:sticky sm:top-60 gap-4 overflow-y-hidden px-12 ">
-        {categorias.map((categoria) => (
-          <div
-            key={categoria.id}
-            className={`p-2 cursor-pointer rounded-lg shadow-sm transition ease-in-out delay-100 ${
-              categoria.nome === categoriaAtiva ? "bg-background font-bold" : ""
-            } `}
-            onClick={() => scrollToCategoria(categoria.nome)}
-          >
-            <p className="capitalize">{categoria.nome}</p>
-          </div>
-        ))}
-      </aside>
+    <section className="flex flex-col justify-center px-2 md:px-4 py-12 bg-background">
+
+    <CategoriasScroll categorias={categorias} menuRef={menuRef}/>
 
       <section
-        className="flex flex-col gap-5 items-center justify-center w-full lg:w-[75%]"
+        className="flex flex-col gap-5 items-center justify-center w-full "
         ref={menuRef}
       >
         {categorias.map((categoria, index) => (

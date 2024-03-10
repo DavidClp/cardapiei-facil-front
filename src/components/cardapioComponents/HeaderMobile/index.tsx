@@ -54,42 +54,12 @@ const HeaderMobile = () => {
           <div className="flex gap-4">
             <Link to={`/${estUrl}/carrinho`} className="flex">
               <ShoppingBag className="text-2xl pointer" />
-              <small className="absolute right-[3.3rem] top-2">{quantidadeTotal}</small>
+              <small className="absolute right-[0.6rem] top-2">{quantidadeTotal}</small>
             </Link>
 
-            {displayNav === "hidden" ? (
-              //@ts-ignore
-              <AiOutlineMenu className="text-2xl pointer" onClick={handleNav} />
-            ) : (
-              //@ts-ignore
-              <GrClose className="text-2xl pointer" onClick={handleNav} />
-            )}
+        
           </div>
         </header>
-
-        <div
-          className={`absolute flex-col top-20 left-[200%] rounded-md gap-4 px-12 z-50 h-max w-[90%] backdrop-blur-md bg-[rgba(247,247,247,0.82)] translate-x-[-50%] transition-colorsl  duration-300 ease-linear ${
-            displayNav === "flex" && "left-[50%]"
-          } drop-shadow-lg`}
-        >
-          {categorias.map((categoria) => (
-            <div
-              key={categoria.id}
-              className={`p-2 cursor-pointer rounded-lg`}
-              onClick={() => scrollToCategoria(categoria.nome)}
-            >
-              <p
-                className={`capitalize text-center py-2 ${
-                  categoria.nome === categoriaAtiva
-                    ? "bg-background font-bold rounded-md"
-                    : ""
-                }`}
-              >
-                {categoria.nome}
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
     </>
   );

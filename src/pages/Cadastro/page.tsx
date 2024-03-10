@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import axios, { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
@@ -10,7 +10,6 @@ import Header from "../home/components/Header";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../../componentes/card";
