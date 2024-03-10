@@ -1,5 +1,5 @@
 node_modules
 /build
 ./build
-./src/constants/urlApi
-/src\constants\urlApi.js
+urlApi.js
+src/constants/urlApi.js

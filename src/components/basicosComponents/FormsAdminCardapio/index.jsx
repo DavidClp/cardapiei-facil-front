@@ -6,6 +6,7 @@ import {
   ButtonComIcon,
   ButtonAtivo,
   ButtonInativo,
+  ButtonFakeLoading,
 } from "../Buttons";
 import { useMutation } from "react-query";
 
@@ -18,28 +19,37 @@ import { urlApi } from "../../../constants/urlApi";
 import Modal from "../Modal";
 import { AlertDialog } from "../alert-dialog";
 import Toast from "../toast";
-import { Card, CardContent, CardHeader, CardTitle } from "../../../componentes/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../../componentes/card";
 import { Input } from "../../../componentes/input";
 import { Label } from "../../../componentes/label";
+import { useStore } from "../../../stores/bound";
 const url = urlApi;
 
 export const FormProduto = ({
   handleSubmit,
   onSubmit,
   register,
+  isLoadingPut,
   errors,
   selectedProduto,
   setImagem2Selecionada,
+  catId
 }) => {
+  const getQtdProdutosDasCategoriasByCatId = useStore((state) => state.getQtdProdutosDasCategoriasByCatId);
+  const ordemPosicaoProduto = getQtdProdutosDasCategoriasByCatId(catId) + 1;
+
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
-  /*  const [imagem2Selecionada, setImagem2Selecionada] = useState(null); */
 
   const [imageSetFromData, setImageSetFromData] = useState(false);
   if (selectedProduto && selectedProduto.imagem && !imageSetFromData) {
     setImagemSelecionada(selectedProduto.imagem);
     setImageSetFromData(true);
   }
-
   //pega a imagem selecionada
   const handleImagemChange = (e) => {
     const arquivoSelecionado = e.target.files[0];
@@ -73,7 +83,7 @@ export const FormProduto = ({
           {...register("produtoId")}
         />
       )}
-      <div className="flex flex-col items-center justify-center gap-2 w-full">
+      <div className="flex flex-col justify-center gap-2 w-full">
         <Label htmlFor="nome" className="font-semibold">
           Nome do produto
         </Label>
@@ -93,32 +103,38 @@ export const FormProduto = ({
         )}
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-2 w-full">
-        <Label htmlFor="valor" className="font-semibold">
-          Valor
-        </Label>
-        <Input
-          type="text"
-          name="valor"
-          /*         value={valor}
-          onChange={handleValorChange} */
-          placeholder="0.00"
-          defaultValue={selectedProduto?.valor || ""}
-          {...register("valor")}
-        />
+      <div className="flex justify-center gap-2 w-full">
+        <div className="w-full">
+          <Label htmlFor="valor" className="font-semibold">
+            Valor
+          </Label>
+          <Input
+            type="text"
+            placeholder="0.00"
+            defaultValue={selectedProduto?.valor || ""}
+            {...register("valor")}
+          />
+        </div>
+        <div>
+          <Label htmlFor="valor" className="font-semibold">
+            Ordem (posição)
+          </Label>
+          <Input
+            type="number"
+            defaultValue={selectedProduto?.ordem || ordemPosicaoProduto}
+            {...register("ordem")}
+          />
+        </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-2 w-full">
+      <div className="flex flex-col justify-center gap-2 w-full">
         <Label htmlFor="descricao" className="font-semibold">
           Descrição do produto
         </Label>
         <textarea
-          name="descricao"
-          id="descricao"
           cols="50"
           rows="3"
           className="rounded-md p-2 w-full outline-primary border border-input"
-          placeholder="Exemplo: Melhor Pizza do Mundo!"
           /*  defaultValue={selectedProduto?.descricao && selectedProduto?.descricao !== "null" ? selectedProduto?.descricao : "" } */
           defaultValue={
             selectedProduto?.descricao ? selectedProduto?.descricao : ""
@@ -162,7 +178,7 @@ export const FormProduto = ({
             >
               Adicionar
             </Label>
-            <Input
+            <input
               type="file"
               className="absolute opacity-0 cursor-pointer"
               id="customFile"
@@ -173,8 +189,11 @@ export const FormProduto = ({
           </>
         )}
       </div>
-
-      <ButtonForm />
+       {
+ /*        isLoadingPut ?  <ButtonFakeLoading/> : <ButtonForm /> */
+ <ButtonForm />
+       }   
+      
     </form>
   );
 };
