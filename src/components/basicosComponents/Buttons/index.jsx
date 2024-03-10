@@ -9,6 +9,8 @@ import {
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import { GrPrevious } from "react-icons/gr";
 import { MdDeleteForever } from "react-icons/md";
+import { FiEdit3} from "react-icons/fi";
+
 
 const ButtonForm = () => {
   return (
@@ -32,7 +34,7 @@ const ButtonCadastrar = () => {
 const ButtonFakeLoading = () => {
   return (
     <button className="bg-gray-400 inline-block text-center py-2 px-12 rounded font-medium text-primary-foreground text-base shadow-md transition-colors delay-75 mt-8 cursor-default" type="button">
-      Criando estabelecimento...
+      Aguarde...
     </button>
   );
 };
@@ -134,6 +136,17 @@ const ButtonRemove = ({ onClick }) => {
   );
 };
 
+const ButtonEdit = ({ onClick }) => {
+  return (
+    <button
+      className="flex items-center justify-center bg-primary hover:bg-primaryHover rounded text-base w-8 h-8 lg:w-10 lg:h-10 text-primary-foreground pointer shadow-sm"
+      onClick={onClick}
+    >
+      <FiEdit3  className="icon" />
+    </button>
+  );
+};
+
 const ButtonAtivo = ({ onClick }) => {
   return (
     <button
@@ -219,5 +232,6 @@ export {
   ButtonAtivo,
   ButtonInativo,
   ButtonHomePage,
-  ButtonCancelar
+  ButtonCancelar,
+  ButtonEdit
 };

@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import { CategoriaResponse } from "../../../services/produto/schemas/CategoriaResponse";
+import { CategoriaListResponse } from "../../../services/produto/schemas/CategoriaListResponse";
 
 interface Props {
-  categorias: CategoriaResponse;
+  categorias: CategoriaListResponse;
   menuRef: useRef;
   categoriaScroll?: string;
 }

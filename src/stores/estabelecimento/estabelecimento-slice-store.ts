@@ -1,21 +1,21 @@
-import { CategoriaResponse } from "../../services/produto/schemas/CategoriaResponse";
+import { CategoriaListResponse } from "../../services/produto/schemas/CategoriaListResponse";
 import { EstabelecimentoFullDetalheResponse } from "../../services/estabelecimento/schemas/EstabelecimentoFullDetalheResponse";
 import { StateCreator } from "zustand";
 import { Omit } from 'utility-types'; // Importe a função Omit
 
 
-type EstabelecimentoType = Omit<EstabelecimentoFullDetalheResponse, keyof CategoriaResponse>;
+type EstabelecimentoType = Omit<EstabelecimentoFullDetalheResponse, keyof CategoriaListResponse>;
 
 export interface EstabelecimentoStore {
   estalecimentoCardapio: EstabelecimentoType;
-  categoriasProdutos: CategoriaResponse
+  categoriasProdutos: CategoriaListResponse
 
   definirEstabelecimentoCardapio: (
     estCardapio: EstabelecimentoType
   ) => void;
   
   definirCategoriaProdutos: (
-    categoriasProdutos: CategoriaResponse
+    categoriasProdutos: CategoriaListResponse
   ) => void;
 
 }

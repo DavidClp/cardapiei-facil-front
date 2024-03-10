@@ -1,15 +1,15 @@
 import React from "react";
-import "./main.scss";
-import { FormCategoria } from "../../basicosComponents/FormsAdminCardapio";
-import { CardProduto } from "../../basicosComponents/CardAdminCardapio";
+import { CardProduto } from "./categoria-card";
 
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useQuery, useMutation } from "react-query";
-import { urlApi } from "../../../constants/urlApi";
-import Toast from "../../basicosComponents/toast";
-import Loader from "../../basicosComponents/loaders/loader";
-import { useStore } from "../../../stores/bound";
+import { urlApi } from "../../../../constants/urlApi";
+import Toast from "../../../../components/basicosComponents/toast";
+import Loader from "../../../../components/basicosComponents/loaders/loader";
+import { useStore } from "../../../../stores/bound";
+import { useCategoriasProdutoList } from "../../../../stores/cardapio-admin/use-categorias-produto-lista";
+import { FormCategoria } from "../../../../components/basicosComponents/FormsAdminCardapio/";
 
 const url = urlApi;
 
@@ -17,23 +17,13 @@ const Main = () => {
   const estId = useStore((state) => state.estId);
 
   const { register, handleSubmit, reset, formState:{errors} } = useForm();
+ 
   const onSubmit = (data) => {
     mutate(data);
   };
 
   //pegar categorias ja registrados para mostrar
-  const { data, isLoading, refetch } = useQuery(["categorias", estId], () => {
-    return axios
-      .get(`${url}api/categorias/${estId}`, {
-        headers: {
-          token: sessionStorage.getItem("token"),
-        },
-      })
-      .then((response) => response.data)
-      .catch((error) => {
-        console.error("Erro na requisição:", error);
-      });
-  });
+  const { data, isLoading, isError: isErroQuery, refetch } = useCategoriasProdutoList({ estId });
 
   const { mutate: deleteCategoria, isError: deleteCategoriaError, isSuccess: deleteCategoriaSucess } = useMutation(
     (categoriaId) =>

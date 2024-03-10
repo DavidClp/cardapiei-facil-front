@@ -5,7 +5,7 @@ import Home from './pages/home';
 import Cardapio from './pages/cardapio';
 
 import Admin from './pages/admin'
-import CardapioAdm from './pages/admin/Cardapio';
+import CardapioAdm from './pages/admin/cardapio/page';
 import Estabelecimento from './pages/admin/estabelecimento';
 import Divulgacao from './pages/admin/divulgacao';
 import Perfil from './pages/admin/perfil';
