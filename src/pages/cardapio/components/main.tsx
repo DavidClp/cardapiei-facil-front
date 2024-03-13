@@ -12,7 +12,7 @@ const Main = () => {
   const menuRef = useRef(null); // Ref para a seção de menu
 
   return (
-    <section className="flex flex-col justify-center px-2 md:px-4 py-12 bg-background">
+    <section className="flex flex-col px-2 md:px-4 py-12 bg-background min-h-full">
 
     <CategoriasScroll categorias={categorias} menuRef={menuRef}/>
 

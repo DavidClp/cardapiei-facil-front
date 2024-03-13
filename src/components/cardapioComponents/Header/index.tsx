@@ -14,11 +14,13 @@ const Header = () => {
     <>
       <section className="flex flex-col lg:flex-row items-center justify-center gap-2 bg-background">
         <div className="mt-20 lg:mt-24">
-          <img
-            src={estalecimentoCardapio.logo}
-            alt="Logo do Estabelecimento"
-            className="w-40"
-          />
+          {estalecimentoCardapio.logo && (
+            <img
+              src={estalecimentoCardapio.logo}
+              alt="Logo do Estabelecimento"
+              className={`w-40`}
+            />
+          ) }
         </div>
 
         <div className="flex mt-3 flex-col w-full px-6">

@@ -4,7 +4,8 @@ import {
   ButtonEfeite,
   ButtonAtivo,
   ButtonInativo,
-  ButtonEdit
+  ButtonEdit,
+  ButtonComplemento,
 } from "../../../../components/basicosComponents/Buttons";
 import Modal from "../../../../components/basicosComponents/Modal";
 import { FormProduto } from "../../../../components/basicosComponents/FormsAdminCardapio";
@@ -30,8 +31,10 @@ const CardProduto = ({ categoria, refetch }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduto, setSelectedProduto] = useState(null); // Novo estado para armazenar o produto
 
-  const calcularQtdProdutosDasCategorias = useStore((state) => state.calcularQtdProdutosDasCategorias);
-  
+  const calcularQtdProdutosDasCategorias = useStore(
+    (state) => state.calcularQtdProdutosDasCategorias
+  );
+
   const openModal = (produto) => {
     calcularQtdProdutosDasCategorias(categoria);
     setSelectedProduto(produto);
@@ -106,7 +109,7 @@ const CardProduto = ({ categoria, refetch }) => {
     mutate: putMutate,
     isError: isErrorPut,
     isSuccess: isSucessPut,
-    isLoading: isLoadingPut
+    isLoading: isLoadingPut,
   } = useMutation(
     (formData) => {
       return axios.put(
@@ -200,6 +203,7 @@ const CardProduto = ({ categoria, refetch }) => {
         deleteProdutoError ||
         isErrorPut ||
         isErrorSit) && <Toast type="error" duration={4000}></Toast>}
+
       <CardHeader className="flex items-center p-3 border-b-solid border-b-[1px] border-b-cinzaClaro">
         <CardTitle className="font-semibold capitalize">
           {categoria.nome}
@@ -208,9 +212,7 @@ const CardProduto = ({ categoria, refetch }) => {
 
       {categoria?.Produtos?.map((produto) => (
         <CardContent className="flex justify-between items-center py-2 px-1 lg:px-4 gap-2 lg:gap-4">
-          <div
-            className="w-full flex items-center gap-1 lg-gap-3  "
-          >
+          <div className="w-full flex items-center gap-1 lg-gap-3  ">
             {produto.imagem && (
               <img
                 src={produto.imagem}
@@ -227,13 +229,14 @@ const CardProduto = ({ categoria, refetch }) => {
           </div>
 
           <div className="flex gap-1">
-            <ButtonEdit onClick={() => openModal(produto)} />
-            {produto.ativo === 1 ? (
-              <ButtonAtivo onClick={() => handleSituacao(produto)} />
-            ) : (
-              <ButtonInativo onClick={() => handleSituacao(produto)} />
-            )}
-            <ButtonRemove onClick={() => deleteProduto(produto.id)} />
+              <ButtonEdit onClick={() => openModal(produto)} />
+         {/*      <ButtonComplemento onClick={() => openModal(produto)} /> */}
+              {produto.ativo === 1 ? (
+                <ButtonAtivo onClick={() => handleSituacao(produto)} />
+              ) : (
+                <ButtonInativo onClick={() => handleSituacao(produto)} />
+              )}
+              <ButtonRemove onClick={() => deleteProduto(produto.id)} />
           </div>
         </CardContent>
       ))}

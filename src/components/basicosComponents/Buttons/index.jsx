@@ -10,6 +10,7 @@ import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import { GrPrevious } from "react-icons/gr";
 import { MdDeleteForever } from "react-icons/md";
 import { FiEdit3} from "react-icons/fi";
+import { PackagePlus} from "lucide-react";
 
 
 const ButtonForm = () => {
@@ -128,7 +129,7 @@ const ButtonVerCardapio = ({ url }) => {
 const ButtonRemove = ({ onClick }) => {
   return (
     <button
-      className="flex items-center justify-center bg-primary hover:bg-primaryHover rounded text-base w-8 h-8 lg:w-10 lg:h-10 text-primary-foreground pointer shadow-sm"
+      className="flex items-center justify-center bg-red-600 hover:bg-primaryHover rounded text-base w-8 h-8 lg:w-10 lg:h-10 text-primary-foreground pointer shadow-sm"
       onClick={onClick}
     >
       <MdDeleteForever className="icon" />
@@ -143,6 +144,17 @@ const ButtonEdit = ({ onClick }) => {
       onClick={onClick}
     >
       <FiEdit3  className="icon" />
+    </button>
+  );
+};
+
+const ButtonComplemento = ({ onClick }) => {
+  return (
+    <button
+      className="flex items-center justify-center bg-primary hover:bg-primaryHover rounded text-base w-8 h-8 lg:w-10 lg:h-10 text-primary-foreground pointer shadow-sm"
+      onClick={onClick}
+    >
+      <PackagePlus size={18} strokeWidth={1.5} className="icon" />
     </button>
   );
 };
@@ -229,6 +241,7 @@ export {
   ButtonSimples,
   ButtonComIcon,
   ButtonDivulgacao,
+  ButtonComplemento,
   ButtonAtivo,
   ButtonInativo,
   ButtonHomePage,
