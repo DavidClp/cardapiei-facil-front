@@ -9,6 +9,7 @@ import HeaderMobile from "./components/HeaderMobile";
 import Header from "./components/Header";
 import { ChamadaAcao } from "./components/chamadaAcao";
 import { ButtonWhatsApp } from "./components/ButtonWhatsApp";
+import { InfoDelivery } from "./components/InfoDelivery";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
       <ButtonWhatsApp/>
       <div className="App">
         <SectionHome />
+        <InfoDelivery/>
         <About />
         <Work />
         <Testimonial />

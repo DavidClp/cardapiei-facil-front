@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineQrcode } from "react-icons/ai";
 import { CiImageOn } from "react-icons/ci"
+import { MdOutlineDeliveryDining } from "react-icons/md";
 
 const Work = () => {
   const workInfoData = [
@@ -11,14 +12,14 @@ const Work = () => {
     },
     {
       image: <CiImageOn className="icon" />,
-      title: "Mostre seu produto",
+      title: "Mostre seu Produto",
       text: "Chega de ficar enchendo a galeria de seus clientes com fotos do seus produtos, anexe a imagem no cardápio e mande apenas um link para seus clientes 😉",
-      }/* ,
+      },
       {
-        image: <AiOutlineQrcode className="icon" />,
-        title: "Fast Deliveries",
-        text: "Lorem ipsum dolor sit amet consectetur. Maecenas orci et lorem ipsum",
-      }, */
+        image:<MdOutlineDeliveryDining className="icon" />,
+        title: "Anotação de Pedidos",
+        text: "Apenas envie o cardápio para seu cliente... deixe que ele mesmo envie o pedido pronto🤩",
+      },
   ];
   return (
     <section className="work-section-wrapper">

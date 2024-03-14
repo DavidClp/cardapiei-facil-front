@@ -1,5 +1,4 @@
 import React from "react";
-import AboutBackground from "../Assets/about-background.webp";
 import painelAdminImg from "../Assets/painel-admin-cardapiei-facil.webp";
 
 import { Link } from "react-router-dom";
@@ -7,7 +6,7 @@ import { ButtonHomePage } from "../../../components/basicosComponents/Buttons";
 
 const About = () => {
   return (
-    <section className="mt-44 w-full flex flex-col lg:flex-row justify-center items-center">  
+    <section className="mt-14 w-full flex flex-col lg:flex-row justify-center items-center">  
       <div className="about-background-image-container">
       </div>
 
