@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./forms.scss";
 import {
   ButtonAvancar,
   ButtonAvancar2,
@@ -29,12 +28,17 @@ import {
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useQuery, useMutation } from "react-query";
+import { useStore } from "../../../stores/bound";
 import { urlApi } from "../../../constants/urlApi";
 const url = urlApi;
 
 const FormEstabelecimento = ({ setPassoAtual }) => {
   const [imagemSelecionada, setImagemSelecionada] = useState(null);
   const [logoSelecionada, setLogoSelecionada] = useState(null);
+
+  //zustand
+  const definirEstId = useStore((state) => state.definirEstId)
+  const definirUrl = useStore((state) => state.definirUrl)
 
   const {
     register,
@@ -63,7 +67,15 @@ const FormEstabelecimento = ({ setPassoAtual }) => {
     {
       onSuccess: (responseData) => {
         const dados = responseData;
+        //zustand
+        definirEstId(dados.id);
+        definirUrl(dados.url);
+        
+        localStorage.setItem("est_url", dados.url);
         localStorage.setItem("est_id", dados.id);
+  
+        sessionStorage.setItem("est_id", dados.id);
+        sessionStorage.setItem("est_url", dados.url);
         setPassoAtual((passoAtual) => passoAtual + 1);
       },
     }

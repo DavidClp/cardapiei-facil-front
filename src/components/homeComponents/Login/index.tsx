@@ -25,7 +25,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const methods = useForm();
 
   const [logou, setLogou] = useState(0); //GAMBIARRA, ARRUMAR
   const [errorLogin, setErrorLogin] = useState(""); //GAMBIARRA, ARRUMAR
@@ -61,6 +60,8 @@ const Login = () => {
         sessionStorage.setItem("token", dados.token);
         sessionStorage.setItem("est_id", dados.est_id);
         sessionStorage.setItem("est_url", dados.est_url);
+
+        //validar o motivo disso
         localStorage.setItem("usuario", JSON.stringify(dados.usuario));
       
        setLogou(1);

@@ -39,7 +39,7 @@ const Admin = () => {
         />
       )} */}
 
-      {passoAtual === 2 && <Navigate to="/login" />}
+      {passoAtual === 2 && <Navigate to="/admin/cardapio" />}
       </div>
     </section>
   );
