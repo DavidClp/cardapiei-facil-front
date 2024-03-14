@@ -39,15 +39,11 @@ const Cadastro = () => {
       onSuccess: (responseData) => {
         const dados = responseData;
         localStorage.setItem("token", dados.token);
-        localStorage.setItem("est_id", dados.est_id);
-        localStorage.setItem("est_url", dados.est_url);
-
-        sessionStorage.setItem("token", dados.token);
-        sessionStorage.setItem("est_id", dados.est_id);
-        sessionStorage.setItem("est_url", dados.est_url);
         
-       // definirUrl(dados.est_url);
-        localStorage.setItem("est_url", JSON.stringify(dados.usuario));
+        sessionStorage.setItem("token", dados.token);
+
+        //validar o motivo disso
+        localStorage.setItem("usuario", JSON.stringify(dados.usuario));
         navigate("/setup");
       },
       onError: (e: AxiosError) => {

@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import "./forms.scss";
 import {
   ButtonLogin,
-  ButtonCadastrar,
   ButtonForm,
-  ButtonFakeLoading,
 } from "../Buttons";
 
 import { ImHome } from "react-icons/im";
@@ -20,8 +17,6 @@ import LoaderSpin from "../loaders/loader-spin";
 import Toast from "../toast";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../componentes/card";
 import { Input } from "../../../componentes/input";
-import { TextField } from "../../../componentes/text-field";
-import { Form } from "../../../componentes/form";
 const est_id = localStorage.getItem("est_id");
 const url = urlApi;
 
@@ -64,7 +59,7 @@ const FormEstabelecimento = () => {
     mutate(formData);
   };
 
-  const { mutate, isSuccess, isError } = useMutation((formData) => {
+  const { mutate, isSuccess } = useMutation((formData) => {
     return axios
       .put(`${url}api/estabelecimentos/geral/${est_id}`, formData, {
         headers: {
